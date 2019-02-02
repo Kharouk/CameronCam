@@ -2,15 +2,13 @@ import React, { Component } from "react";
 import firebase from "firebase";
 import "./App.css";
 
-require("dotenv").config();
-
 let config = {
-  apiKey: process.env.firebaseAPI,
-  authDomain: process.env.authDomain,
-  databaseURL: "https://cameron-cam.firebaseio.com",
+  apiKey: process.env.REACT_APP_FIREBASE_API,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  databaseURL: process.env.REACT_APP_DATABASE_URL,
   projectId: "cameron-cam",
   storageBucket: "cameron-cam.appspot.com",
-  messagingSenderId: process.env.messagingSenderId
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID
 };
 
 firebase.initializeApp(config);

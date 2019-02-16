@@ -1,0 +1,15 @@
+.body {
+  height: 800px;
+  background: rgb(63, 130, 195);
+  display: grid;
+  grid-template-columns: 10% auto;
+}
+
+#cameron-logo {
+  height: 200px;
+  width: 250px;
+}
+
+#cameron-pin {
+  margin-left: 12%
+}

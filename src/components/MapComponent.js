@@ -6,6 +6,8 @@ import {
   Marker
 } from "react-google-maps";
 
+const cameron = require("./styles/images/pin.png");
+
 let url = `https://maps.googleapis.com/maps/api/js?key=${
   process.env.REACT_APP_GOOGLE_API_KEY
 }`;
@@ -17,9 +19,9 @@ const MapComponent = withScriptjs(
       zoom={13}
       defaultCenter={{ lat: 51.52713, lng: -0.07806 }}
     >
-      <Marker position={props.marker} />
+      <Marker icon={cameron} position={props.marker} />
       {props.markers.map((marker, id) => {
-        return <Marker key={id} position={marker} />;
+        return <Marker icon={cameron} key={id} position={marker} />;
       })}
     </GoogleMap>
   ))
@@ -59,6 +61,10 @@ class Map extends Component {
     });
   };
 
+  hidesButtons = () => {
+    this.setState({ saveButton: false });
+  };
+
   saveCoordinates = event => {
     this.setState({
       marker: {
@@ -78,7 +84,32 @@ class Map extends Component {
     return (
       <div>
         {this.state.saveButton && (
-          <button onClick={this.saveToDatabase}>save</button>
+          <>
+            <button
+              style={{
+                color: "rgb(63, 130, 195)",
+                fontSize: "30px",
+                border: "2px solid rgb(63, 130, 195)",
+                padding: "10px",
+                margin: "20px"
+              }}
+              onClick={this.saveToDatabase}
+            >
+              Save
+            </button>
+            <button
+              style={{
+                color: "rgb(63, 130, 195)",
+                fontSize: "30px",
+                border: "2px solid rgb(63, 130, 195)",
+                padding: "10px",
+                margin: "20px"
+              }}
+              onClick={this.hidesButtons}
+            >
+              Cancel
+            </button>
+          </>
         )}
         <MapComponent
           lat={51.52713}

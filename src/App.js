@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import firebase from "firebase";
 import Map from "./components/MapComponent";
+import Header from "./components/Header";
 import "./App.css";
 
 let config = {
@@ -19,7 +20,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1>Cameron Cam</h1>
+        <Header />
         <Map db={db} />
       </div>
     );

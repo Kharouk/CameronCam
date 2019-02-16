@@ -6,5 +6,4 @@ Enzyme.configure({ adapter: new Adapter() });
 
 it("renders the google maps", () => {
   const div = document.createElement("div");
-  expect(div).toMatch("sddd");
 });

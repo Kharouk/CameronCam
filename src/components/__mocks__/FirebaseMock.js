@@ -1,3 +1,7 @@
-export const FirebaseMock = {
-  ref: jest.fn()
+export default {
+  ref: () => {
+    return {
+      on: () => true
+    };
+  }
 };

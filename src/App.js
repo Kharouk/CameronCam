@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import firebase from "firebase";
+import MapComponent from "./components/MapComponent";
 import "./App.css";
 
 let config = {
@@ -10,6 +11,9 @@ let config = {
   storageBucket: "cameron-cam.appspot.com",
   messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID
 };
+
+let url =
+  "https://maps.googleapis.com/maps/api/js?key=AIzaSyCxwT9Rn_mAqEQRUAvL1i7SnFYQsXiddQY";
 
 firebase.initializeApp(config);
 const db = firebase.database();
@@ -32,16 +36,17 @@ db.ref("location/").on(
   }
 );
 
-writeToDb("london", 52, -23);
-writeToDb("paris", 52, -23);
-
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <h1>Cameron Cam</h1>
-        </header>
+        <h1>Cameron Cam</h1>
+        <MapComponent
+          googleMapURL={url}
+          loadingElement={<div style={{ height: `100%` }} />}
+          containerElement={<div style={{ height: `650px` }} />}
+          mapElement={<div style={{ height: `100%` }} />}
+        />
       </div>
     );
   }

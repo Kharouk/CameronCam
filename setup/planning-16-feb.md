@@ -1,7 +1,7 @@
 # TODO - 16 February 2019
 
 ### Things for today
-- [] Sort out Google API with Firebase
+- [x] Sort out Google API with Firebase
 - [] **CR**UD application
   - [] As a user, so that I can save a new location, I want to be able to click on a map and get a pin.
   - [] As a user, so that I can see all locations, I want to see the pins that are saved on the map.

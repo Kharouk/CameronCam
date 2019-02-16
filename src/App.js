@@ -12,8 +12,9 @@ let config = {
   messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID
 };
 
-let url =
-  "https://maps.googleapis.com/maps/api/js?key=AIzaSyCxwT9Rn_mAqEQRUAvL1i7SnFYQsXiddQY";
+let url = `https://maps.googleapis.com/maps/api/js?key=${
+  process.env.REACT_APP_GOOGLE_API_KEY
+}`;
 
 firebase.initializeApp(config);
 const db = firebase.database();

@@ -18,6 +18,9 @@ const MapComponent = withScriptjs(
       defaultCenter={{ lat: 51.52713, lng: -0.07806 }}
     >
       <Marker position={props.marker} />
+      {props.markers.map((marker, id) => {
+        return <Marker key={id} position={marker} />;
+      })}
     </GoogleMap>
   ))
 );
@@ -26,26 +29,62 @@ class Map extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      marker: false
+      marker: false,
+      markers: [],
+      saveButton: false,
+      index: 0
     };
   }
+
+  componentWillMount() {
+    this.getIndex();
+    this.props.db.ref("location/").on(
+      "value",
+      snapshot => {
+        const result = snapshot.val();
+        const markers = Object.keys(result).map(value => result[value]);
+        this.setState({ markers });
+      },
+      errorObject => {
+        console.log("The read failed: " + errorObject.code);
+      }
+    );
+  }
+
+  getIndex = () => {
+    this.props.db.ref("index/").on("value", snapshot => {
+      const result = snapshot.val();
+      console.log(result);
+      this.setState({ index: result });
+    });
+  };
 
   saveCoordinates = event => {
     this.setState({
       marker: {
         lat: event.latLng.lat(),
         lng: event.latLng.lng()
-      }
+      },
+      saveButton: true
     });
+  };
+
+  saveToDatabase = () => {
+    this.props.db.ref("index/").set(this.state.index + 1);
+    this.props.db.ref("location/" + this.state.index).set(this.state.marker);
   };
 
   render() {
     return (
       <div>
+        {this.state.saveButton && (
+          <button onClick={this.saveToDatabase}>save</button>
+        )}
         <MapComponent
           lat={51.52713}
           lng={-0.07806}
           marker={this.state.marker}
+          markers={this.state.markers}
           onMapClick={e => this.saveCoordinates(e)}
           googleMapURL={url}
           loadingElement={<div style={{ height: `100%` }} />}

@@ -15,30 +15,12 @@ let config = {
 firebase.initializeApp(config);
 const db = firebase.database();
 
-function writeToDb(location, long, lat) {
-  db.ref("location/" + location).set({
-    location,
-    long,
-    lat
-  });
-}
-
-db.ref("location/").on(
-  "value",
-  function(snapshot) {
-    console.log(snapshot.val());
-  },
-  function(errorObject) {
-    console.log("The read failed: " + errorObject.code);
-  }
-);
-
 class App extends Component {
   render() {
     return (
       <div className="App">
         <h1>Cameron Cam</h1>
-        <Map />
+        <Map db={db} />
       </div>
     );
   }

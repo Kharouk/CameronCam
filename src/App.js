@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import firebase from "firebase";
-import MapComponent from "./components/MapComponent";
+import Map from "./components/MapComponent";
+import Header from "./components/Header";
+import { isMobile } from "react-device-detect";
 import "./App.css";
 
 let config = {
@@ -12,44 +14,30 @@ let config = {
   messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID
 };
 
-let url = `https://maps.googleapis.com/maps/api/js?key=${
-  process.env.REACT_APP_GOOGLE_API_KEY
-}`;
-
 firebase.initializeApp(config);
 const db = firebase.database();
 
-function writeToDb(location, long, lat) {
-  db.ref("location/" + location).set({
-    location,
-    long,
-    lat
-  });
-}
-
-db.ref("location/").on(
-  "value",
-  function(snapshot) {
-    console.log(snapshot.val());
-  },
-  function(errorObject) {
-    console.log("The read failed: " + errorObject.code);
-  }
-);
-
 class App extends Component {
+  renderContent = () => {
+    if (isMobile) {
+      return (
+        <div>
+          <h5 style={{ textAlign: "center" }}>
+            Please view this page on desktop
+          </h5>
+        </div>
+      );
+    } else {
+      return (
+        <div className="App">
+          <Header />
+          <Map db={db} />
+        </div>
+      );
+    }
+  };
   render() {
-    return (
-      <div className="App">
-        <h1>Cameron Cam</h1>
-        <MapComponent
-          googleMapURL={url}
-          loadingElement={<div style={{ height: `100%` }} />}
-          containerElement={<div style={{ height: `650px` }} />}
-          mapElement={<div style={{ height: `100%` }} />}
-        />
-      </div>
-    );
+    return this.renderContent();
   }
 }
 

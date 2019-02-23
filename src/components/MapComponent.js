@@ -23,9 +23,11 @@ const MapComponent = withScriptjs(
       defaultCenter={{ lat: 51.52713, lng: -0.07806 }}
     >
       <Marker icon={cameron} position={props.marker}>
-        <InfoWindow onCloseClick={props.closeSave}>
-          <SaveButton saveToDatabase={props.saveToDatabase} />
-        </InfoWindow>
+        {props.isOpen && (
+          <InfoWindow onCloseClick={props.closeSave}>
+            <SaveButton saveToDatabase={props.saveToDatabase} />
+          </InfoWindow>
+        )}
       </Marker>
       {props.markers.map((marker, index) => {
         return (
@@ -110,7 +112,7 @@ class Map extends Component {
   saveToDatabase = () => {
     this.props.db.ref("index/").set(this.state.index + 1);
     this.props.db.ref("location/" + this.state.index).set(this.state.marker);
-    this.setState({ saveButton: false });
+    this.hideButtons();
   };
 
   render() {

@@ -80,8 +80,10 @@ class Map extends Component {
       "value",
       snapshot => {
         const result = snapshot.val();
-        const markers = Object.keys(result).map(value => result[value]);
-        this.setState({ markers });
+        if (result) {
+          const markers = Object.keys(result).map(value => result[value]);
+          this.setState({ markers });
+        }
       },
       errorObject => {
         console.log("The read failed: " + errorObject.code);

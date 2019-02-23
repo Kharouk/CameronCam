@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import SaveButton from "./SaveButton";
-import DeleteButton from "./DeleteButton";
+import Button from "./Button";
 import {
   GoogleMap,
   withGoogleMap,
@@ -25,7 +24,7 @@ const MapComponent = withScriptjs(
       <Marker icon={cameron} position={props.marker}>
         {props.isOpen && (
           <InfoWindow onCloseClick={props.closeSave}>
-            <SaveButton saveToDatabase={props.saveToDatabase} />
+            <Button isSaveButton={true} saveToDatabase={props.saveToDatabase} />
           </InfoWindow>
         )}
       </Marker>
@@ -39,7 +38,8 @@ const MapComponent = withScriptjs(
           >
             {props.markerWindowIndex === index && (
               <InfoWindow onCloseClick={props.closeSave}>
-                <DeleteButton
+                <Button
+                  isSaveButton={false}
                   deleteFromDatabase={() => props.deleteFromDatabase(marker)}
                 />
               </InfoWindow>

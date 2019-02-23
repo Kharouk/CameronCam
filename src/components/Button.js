@@ -1,7 +1,8 @@
 import React from "react";
 
+let color, onClick, text;
+
 const Button = props => {
-  let color, onClick, text;
   if (props.isSaveButton) {
     color = "rgb(63, 130, 195)";
     onClick = props.saveToDatabase;
@@ -11,15 +12,14 @@ const Button = props => {
     onClick = props.deleteFromDatabase;
     text = "Delete";
   }
+
   return (
     <div>
       <button
         style={{
           color,
           fontSize: "30px",
-          border: `2px solid ${color}`,
-          padding: "10px",
-          margin: "20px"
+          border: `2px solid ${color}`
         }}
         onClick={onClick}
       >

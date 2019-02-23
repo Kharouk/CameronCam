@@ -95,7 +95,7 @@ class Map extends Component {
   };
 
   deleteFromDatabase = marker => {
-    this.props.db.ref("location/" + marker.id).set(null);
+    this.props.db.ref("sightings/" + marker.id).set(null);
   };
 
   markerHandleClick = num => {

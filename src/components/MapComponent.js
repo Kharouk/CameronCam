@@ -1,9 +1,12 @@
 import React, { Component } from "react";
+import SaveButton from "./SaveButton";
+import DeleteButton from "./DeleteButton";
 import {
   GoogleMap,
   withGoogleMap,
   withScriptjs,
-  Marker
+  Marker,
+  InfoWindow
 } from "react-google-maps";
 
 const cameron = require("./styles/images/pin.png");
@@ -19,9 +22,28 @@ const MapComponent = withScriptjs(
       zoom={13}
       defaultCenter={{ lat: 51.52713, lng: -0.07806 }}
     >
-      <Marker icon={cameron} position={props.marker} />
-      {props.markers.map((marker, id) => {
-        return <Marker icon={cameron} key={id} position={marker} />;
+      <Marker icon={cameron} position={props.marker}>
+        <InfoWindow onCloseClick={props.closeSave}>
+          <SaveButton saveToDatabase={props.saveToDatabase} />
+        </InfoWindow>
+      </Marker>
+      {props.markers.map((marker, index) => {
+        return (
+          <Marker
+            icon={cameron}
+            key={marker.id}
+            position={marker}
+            onClick={() => props.markerHandleClick(index)}
+          >
+            {props.markerWindowIndex === index && (
+              <InfoWindow onCloseClick={props.closeSave}>
+                <DeleteButton
+                  deleteFromDatabase={() => props.deleteFromDatabase(marker)}
+                />
+              </InfoWindow>
+            )}
+          </Marker>
+        );
       })}
     </GoogleMap>
   ))
@@ -32,6 +54,7 @@ class Map extends Component {
     super(props);
     this.state = {
       marker: false,
+      markerWindowIndex: 0,
       markers: [],
       saveButton: false,
       index: 0
@@ -53,6 +76,14 @@ class Map extends Component {
     );
   }
 
+  deleteFromDatabase = marker => {
+    this.props.db.ref("location/" + marker.id).set(null);
+  };
+
+  markerHandleClick = num => {
+    this.setState({ markerWindowIndex: num });
+  };
+
   getIndex = () => {
     this.props.db.ref("index/").on("value", snapshot => {
       const result = snapshot.val();
@@ -61,13 +92,14 @@ class Map extends Component {
     });
   };
 
-  hidesButtons = () => {
+  hideButtons = () => {
     this.setState({ saveButton: false });
   };
 
   saveCoordinates = event => {
     this.setState({
       marker: {
+        id: this.state.index,
         lat: event.latLng.lat(),
         lng: event.latLng.lng()
       },
@@ -78,45 +110,24 @@ class Map extends Component {
   saveToDatabase = () => {
     this.props.db.ref("index/").set(this.state.index + 1);
     this.props.db.ref("location/" + this.state.index).set(this.state.marker);
+    this.setState({ saveButton: false });
   };
 
   render() {
     return (
       <div>
-        {this.state.saveButton && (
-          <>
-            <button
-              style={{
-                color: "rgb(63, 130, 195)",
-                fontSize: "30px",
-                border: "2px solid rgb(63, 130, 195)",
-                padding: "10px",
-                margin: "20px"
-              }}
-              onClick={this.saveToDatabase}
-            >
-              Save
-            </button>
-            <button
-              style={{
-                color: "rgb(63, 130, 195)",
-                fontSize: "30px",
-                border: "2px solid rgb(63, 130, 195)",
-                padding: "10px",
-                margin: "20px"
-              }}
-              onClick={this.hidesButtons}
-            >
-              Cancel
-            </button>
-          </>
-        )}
         <MapComponent
           lat={51.52713}
           lng={-0.07806}
           marker={this.state.marker}
           markers={this.state.markers}
+          markerHandleClick={this.markerHandleClick}
           onMapClick={e => this.saveCoordinates(e)}
+          saveToDatabase={this.saveToDatabase}
+          markerWindowIndex={this.state.markerWindowIndex}
+          deleteFromDatabase={this.deleteFromDatabase}
+          closeSave={this.hideButtons}
+          isOpen={this.state.saveButton}
           googleMapURL={url}
           loadingElement={<div style={{ height: `100%` }} />}
           containerElement={<div style={{ height: `650px` }} />}

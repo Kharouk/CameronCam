@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Button from "./Button";
+import Description from "./Description";
 import {
   GoogleMap,
   withGoogleMap,
@@ -20,11 +21,18 @@ const MapComponent = withScriptjs(
       onClick={props.onMapClick}
       zoom={13}
       defaultCenter={{ lat: 51.52713, lng: -0.07806 }}
+      defaultClickableIcons={false}
     >
       <Marker icon={cameron} position={props.marker}>
         {props.isOpen && (
           <InfoWindow onCloseClick={props.closeSave}>
-            <Button isSaveButton={true} saveToDatabase={props.saveToDatabase} />
+            <>
+              <Description handleChange={props.descHandleChange} />
+              <Button
+                isSaveButton={true}
+                saveToDatabase={props.saveToDatabase}
+              />
+            </>
           </InfoWindow>
         )}
       </Marker>
@@ -58,6 +66,9 @@ class Map extends Component {
       marker: false,
       markerWindowIndex: 0,
       markers: [],
+      title: "",
+      desc: "",
+      img: "",
       saveButton: false,
       index: 0
     };
@@ -65,7 +76,7 @@ class Map extends Component {
 
   componentWillMount() {
     this.getIndex();
-    this.props.db.ref("location/").on(
+    this.props.db.ref("sightings/").on(
       "value",
       snapshot => {
         const result = snapshot.val();
@@ -78,6 +89,11 @@ class Map extends Component {
     );
   }
 
+  descHandleChange = e => {
+    this.setState({ desc: e.target.value });
+    console.log(this.state.desc);
+  };
+
   deleteFromDatabase = marker => {
     this.props.db.ref("location/" + marker.id).set(null);
   };
@@ -89,30 +105,33 @@ class Map extends Component {
   getIndex = () => {
     this.props.db.ref("index/").on("value", snapshot => {
       const result = snapshot.val();
-      console.log(result);
       this.setState({ index: result });
     });
   };
 
-  hideButtons = () => {
-    this.setState({ saveButton: false });
+  hideSave = () => {
+    this.setState({ saveButton: false, marker: { desc: "", img: "" } });
   };
 
   saveCoordinates = event => {
     this.setState({
       marker: {
         id: this.state.index,
+        desc: this.state.desc,
+        img: this.state.img,
         lat: event.latLng.lat(),
         lng: event.latLng.lng()
       },
       saveButton: true
     });
+
+    console.log(this.state.marker);
   };
 
   saveToDatabase = () => {
     this.props.db.ref("index/").set(this.state.index + 1);
-    this.props.db.ref("location/" + this.state.index).set(this.state.marker);
-    this.hideButtons();
+    this.props.db.ref("sightings/" + this.state.index).set(this.state.marker);
+    this.hideSave();
   };
 
   render() {
@@ -127,8 +146,9 @@ class Map extends Component {
           onMapClick={e => this.saveCoordinates(e)}
           saveToDatabase={this.saveToDatabase}
           markerWindowIndex={this.state.markerWindowIndex}
+          descHandleChange={this.descHandleChange}
           deleteFromDatabase={this.deleteFromDatabase}
-          closeSave={this.hideButtons}
+          closeSave={this.hideSave}
           isOpen={this.state.saveButton}
           googleMapURL={url}
           loadingElement={<div style={{ height: `100%` }} />}

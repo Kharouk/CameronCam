@@ -7,7 +7,7 @@ const cameronBag = require("./styles/images/paper_bag.gif");
 const cameronSpirit = require("./styles/images/spiritted.gif");
 const cameronTomato = require("./styles/images/toamto.gif");
 const cameronWig = require("./styles/images/wig.gif");
-const logo = require("./styles/images/logo2.png");
+const logo = require("./styles/images/logo_CC.png");
 export default class Header extends Component {
   randomImage = () => {
     const images = [

@@ -46,6 +46,7 @@ const MapComponent = withScriptjs(
           </InfoWindow>
         )}
       </Marker>
+
       {/* Already saved Markers from DB: */}
       {props.markers.map((marker, index) => {
         return (
@@ -58,7 +59,7 @@ const MapComponent = withScriptjs(
             {props.isOpen && props.markerWindowIndex === index && (
               <InfoWindow onCloseClick={props.hideInfo}>
                 <>
-                  <img src={marker.img} alt="" />
+                  <img src={marker.img} alt={marker.desc} />
                   <p>{marker.desc}</p>
                   <Button
                     isSaveButton={false}
@@ -197,9 +198,9 @@ class Map extends Component {
           isOpen={this.state.infoBox}
           isSaveOpen={this.state.saveInfoBox}
           googleMapURL={url}
-          loadingElement={<div style={{ height: `100%` }} />}
+          loadingElement={<div style={{ height: `100vh` }} />}
           containerElement={<div style={{ height: `650px` }} />}
-          mapElement={<div style={{ height: `100%` }} />}
+          mapElement={<div style={{ height: `100vh` }} />}
         />
       </div>
     );

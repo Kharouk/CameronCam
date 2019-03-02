@@ -24,9 +24,13 @@ const MapComponent = withScriptjs(
       defaultCenter={{ lat: 51.52713, lng: -0.07806 }}
       defaultClickableIcons={false}
     >
-      <Marker icon={cameron} position={props.marker}>
+      <Marker
+        icon={cameron}
+        onClick={() => props.toggleInfo()}
+        position={props.marker}
+      >
         {props.isOpen && (
-          <InfoWindow onCloseClick={props.closeSave}>
+          <InfoWindow onCloseClick={props.hideInfo}>
             <>
               <ImageUpload
                 handleUpload={props.handleImageUpload}
@@ -42,16 +46,16 @@ const MapComponent = withScriptjs(
         )}
       </Marker>
       {props.markers.map((marker, index) => {
-        console.log(marker);
+        console.log(index);
         return (
           <Marker
             icon={cameron}
             key={marker.id}
-            position={marker}
+            position={{ lat: marker.lat, lng: marker.lng }}
             onClick={() => props.markerHandleClick(index)}
           >
-            {props.markerWindowIndex === index && (
-              <InfoWindow onCloseClick={props.closeSave}>
+            {props.isOpen && props.markerWindowIndex === index && (
+              <InfoWindow onCloseClick={props.hideInfo}>
                 <>
                   <img src={marker.img} alt="" />
                   <p>{marker.desc}</p>
@@ -81,9 +85,9 @@ class Map extends Component {
         desc: "",
         img: ""
       },
-      markerWindowIndex: 0,
+      markerWindowIndex: null,
       markers: [],
-      saveButton: false,
+      infoBox: false,
       index: 0
     };
   }
@@ -104,6 +108,12 @@ class Map extends Component {
       }
     );
   }
+
+  toggleInfo = () => {
+    const { infoBox } = this.state;
+    console.log(infoBox);
+    this.setState({ infoBox: !infoBox });
+  };
 
   handleImageUpload = filename => {
     this.props.storage
@@ -128,7 +138,8 @@ class Map extends Component {
   };
 
   markerHandleClick = num => {
-    this.setState({ markerWindowIndex: num });
+    console.log(this.state.infoBox);
+    this.setState({ markerWindowIndex: num, infoBox: true });
   };
 
   getIndex = () => {
@@ -138,8 +149,8 @@ class Map extends Component {
     });
   };
 
-  hideSave = () => {
-    this.setState({ saveButton: false, marker: { desc: "", img: "" } });
+  hideInfo = () => {
+    this.setState({ infoBox: false, marker: { desc: "", img: "" } });
   };
 
   saveCoordinates = event => {
@@ -149,14 +160,14 @@ class Map extends Component {
         lat: event.latLng.lat(),
         lng: event.latLng.lng()
       },
-      saveButton: true
+      infoBox: true
     });
   };
 
   saveToDatabase = () => {
     this.props.db.ref("index/").set(this.state.index + 1);
     this.props.db.ref("sightings/" + this.state.index).set(this.state.marker);
-    this.hideSave();
+    this.hideInfo();
   };
 
   render() {
@@ -175,8 +186,9 @@ class Map extends Component {
           imageStorage={this.props.storage}
           descHandleChange={this.descHandleChange}
           deleteFromDatabase={this.deleteFromDatabase}
-          closeSave={this.hideSave}
-          isOpen={this.state.saveButton}
+          hideInfo={this.hideInfo}
+          toggleInfo={this.toggleInfo}
+          isOpen={this.state.infoBox}
           googleMapURL={url}
           loadingElement={<div style={{ height: `100%` }} />}
           containerElement={<div style={{ height: `650px` }} />}

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Button from "./Button";
+import ImageUpload from "./ImageUpload";
 import Description from "./Description";
 import {
   GoogleMap,
@@ -27,6 +28,7 @@ const MapComponent = withScriptjs(
         {props.isOpen && (
           <InfoWindow onCloseClick={props.closeSave}>
             <>
+              <ImageUpload handleUpload={props.handleUpload} />
               <Description handleChange={props.descHandleChange} />
               <Button
                 isSaveButton={true}

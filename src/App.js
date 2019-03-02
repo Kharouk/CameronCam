@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import firebase from "firebase";
+import * as firebase from "firebase";
+import "firebase/storage";
 import Map from "./components/MapComponent";
 import Header from "./components/Header";
 import { isMobile } from "react-device-detect";
@@ -10,12 +11,13 @@ let config = {
   authDomain: process.env.REACT_APP_AUTH_DOMAIN,
   databaseURL: process.env.REACT_APP_DATABASE_URL,
   projectId: "cameron-cam",
-  storageBucket: "cameron-cam.appspot.com",
+  storageBucket: "gs://cameron-cam.appspot.com",
   messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID
 };
 
 firebase.initializeApp(config);
 const db = firebase.database();
+const storageRef = firebase.storage().ref("images");
 
 class App extends Component {
   renderContent = () => {
@@ -27,14 +29,13 @@ class App extends Component {
           </h5>
         </div>
       );
-    } else {
-      return (
-        <div className="App">
-          <Header />
-          <Map db={db} />
-        </div>
-      );
     }
+    return (
+      <div className="App">
+        <Header />
+        <Map db={db} storage={storageRef} />
+      </div>
+    );
   };
   render() {
     return this.renderContent();

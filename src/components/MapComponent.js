@@ -21,31 +21,36 @@ const MapComponent = withScriptjs(
     <GoogleMap
       onClick={props.onMapClick}
       zoom={13}
-      defaultCenter={{ lat: 56.0119872993935, lng: -4.6038123275092175 }}
+      // Main:
+      // defaultCenter={{ lat: 56.0119872993935, lng: -4.6038123275092175 }}
+      // London:
+      defaultCenter={{ lat: 51.509, lng: -0.118092 }}
       defaultClickableIcons={false}
     >
       {/* Currently Selecting Marker: */}
-      <Marker
-        icon={cameron}
-        onClick={() => props.toggleInfo()}
-        position={props.marker}
-      >
-        {props.isSaveOpen && (
-          <InfoWindow onCloseClick={props.hideSaveInfo}>
-            <>
-              <ImageUpload
-                handleUpload={props.handleImageUpload}
-                imageStorage={props.imageStorage}
-              />
-              <Description handleChange={props.descHandleChange} />
-              <Button
-                isSaveButton={true}
-                saveToDatabase={props.saveToDatabase}
-              />
-            </>
-          </InfoWindow>
-        )}
-      </Marker>
+      {props.user && (
+        <Marker
+          icon={cameron}
+          onClick={() => props.toggleInfo()}
+          position={props.marker}
+        >
+          {props.isSaveOpen && (
+            <InfoWindow onCloseClick={props.hideSaveInfo}>
+              <>
+                <ImageUpload
+                  handleUpload={props.handleImageUpload}
+                  imageStorage={props.imageStorage}
+                />
+                <Description handleChange={props.descHandleChange} />
+                <Button
+                  isSaveButton={true}
+                  saveToDatabase={props.saveToDatabase}
+                />
+              </>
+            </InfoWindow>
+          )}
+        </Marker>
+      )}
 
       {/* Already saved Markers from DB: */}
       {props.markers.map((marker, index) => {
@@ -183,6 +188,7 @@ class Map extends Component {
   render() {
     return (
       <div>
+        {!this.props.user && <h1>Sign in to report your sightings!</h1>}
         <MapComponent
           lat={51.52713}
           lng={-0.07806}

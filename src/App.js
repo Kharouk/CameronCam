@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import firebase from "firebase";
+import * as firebase from "firebase";
+import "firebase/storage";
 import Map from "./components/MapComponent";
 import Header from "./components/Header";
 import { isMobile } from "react-device-detect";

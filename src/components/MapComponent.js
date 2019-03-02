@@ -61,7 +61,7 @@ const MapComponent = withScriptjs(
                 <>
                   {marker.img && <img src={marker.img} alt={marker.desc} />}
                   <p>{marker.desc}</p>
-                  {props.user.uid === marker.uid && (
+                  {props.user.uid && props.user.uid === marker.uid && (
                     <Button
                       isSaveButton={false}
                       deleteFromDatabase={() =>

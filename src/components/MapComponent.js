@@ -61,10 +61,14 @@ const MapComponent = withScriptjs(
                 <>
                   <img src={marker.img} alt={marker.desc} />
                   <p>{marker.desc}</p>
-                  <Button
-                    isSaveButton={false}
-                    deleteFromDatabase={() => props.deleteFromDatabase(marker)}
-                  />
+                  {props.user.uid === marker.uid && (
+                    <Button
+                      isSaveButton={false}
+                      deleteFromDatabase={() =>
+                        props.deleteFromDatabase(marker)
+                      }
+                    />
+                  )}
                 </>
               </InfoWindow>
             )}
@@ -172,11 +176,14 @@ class Map extends Component {
 
   saveToDatabase = () => {
     this.props.db.ref("index/").set(this.state.index + 1);
-    this.props.db.ref("sightings/" + this.state.index).set(this.state.marker);
+    const { marker } = this.state;
+    marker.uid = this.props.user.uid;
+    this.props.db.ref("sightings/" + this.state.index).set(marker);
     this.hideSafeInfo();
   };
 
   render() {
+    console.log(this.props.user);
     return (
       <div>
         <MapComponent
@@ -197,6 +204,7 @@ class Map extends Component {
           toggleInfo={this.toggleInfo}
           isOpen={this.state.infoBox}
           isSaveOpen={this.state.saveInfoBox}
+          user={this.props.user}
           googleMapURL={url}
           loadingElement={<div style={{ height: `100vh` }} />}
           containerElement={<div style={{ height: `650px` }} />}

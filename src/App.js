@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import * as firebase from "firebase";
 import "firebase/storage";
 import Map from "./components/MapComponent";
+import Login from "./components/Login";
 import Header from "./components/Header";
 import { isMobile } from "react-device-detect";
 import "./App.css";
@@ -20,6 +21,33 @@ const db = firebase.database();
 const storageRef = firebase.storage().ref("images");
 
 class App extends Component {
+  state = {
+    email: "",
+    password: "",
+    error: null,
+    isUserLoggedIn: false
+  };
+
+  handleInputChange = event => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
+
+  handleSubmit = event => {
+    event.preventDefault();
+    const { email, password } = this.state;
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then(user => {
+        console.log(user);
+      });
+  };
+
+  handleSignout = () => {
+    console.log(firebase.auth().signOut());
+    firebase.auth().signOut();
+  };
+
   renderContent = () => {
     if (isMobile) {
       return (
@@ -32,8 +60,16 @@ class App extends Component {
     }
     return (
       <div className="App">
+        {!firebase.auth().currentUser && (
+          <Login
+            handleInputChange={this.handleInputChange}
+            handleSubmit={this.handleSubmit}
+            handleSignout={this.handleSignout}
+          />
+        )}
+        <button onClick={this.handleSignout}>Logout</button>
         <Header />
-        <Map db={db} storage={storageRef} />
+        <Map db={db} storage={storageRef} user={firebase.auth().currentUser} />
       </div>
     );
   };

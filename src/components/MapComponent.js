@@ -21,16 +21,17 @@ const MapComponent = withScriptjs(
     <GoogleMap
       onClick={props.onMapClick}
       zoom={13}
-      defaultCenter={{ lat: 51.52713, lng: -0.07806 }}
+      defaultCenter={{ lat: 56.0119872993935, lng: -4.6038123275092175 }}
       defaultClickableIcons={false}
     >
+      {/* Currently Selecting Marker: */}
       <Marker
         icon={cameron}
         onClick={() => props.toggleInfo()}
         position={props.marker}
       >
-        {props.isOpen && (
-          <InfoWindow onCloseClick={props.hideInfo}>
+        {props.isSaveOpen && (
+          <InfoWindow onCloseClick={props.hideSaveInfo}>
             <>
               <ImageUpload
                 handleUpload={props.handleImageUpload}
@@ -45,8 +46,8 @@ const MapComponent = withScriptjs(
           </InfoWindow>
         )}
       </Marker>
+      {/* Already saved Markers from DB: */}
       {props.markers.map((marker, index) => {
-        console.log(index);
         return (
           <Marker
             icon={cameron}
@@ -88,6 +89,7 @@ class Map extends Component {
       markerWindowIndex: null,
       markers: [],
       infoBox: false,
+      saveInfoBox: true,
       index: 0
     };
   }
@@ -110,9 +112,8 @@ class Map extends Component {
   }
 
   toggleInfo = () => {
-    const { infoBox } = this.state;
-    console.log(infoBox);
-    this.setState({ infoBox: !infoBox });
+    const { saveInfoBox } = this.state;
+    this.setState({ saveInfoBox: !saveInfoBox });
   };
 
   handleImageUpload = filename => {
@@ -150,7 +151,11 @@ class Map extends Component {
   };
 
   hideInfo = () => {
-    this.setState({ infoBox: false, marker: { desc: "", img: "" } });
+    this.setState({ infoBox: false });
+  };
+
+  hideSafeInfo = () => {
+    this.setState({ saveInfoBox: false, marker: { desc: "", img: "" } });
   };
 
   saveCoordinates = event => {
@@ -160,14 +165,14 @@ class Map extends Component {
         lat: event.latLng.lat(),
         lng: event.latLng.lng()
       },
-      infoBox: true
+      saveInfoBox: true
     });
   };
 
   saveToDatabase = () => {
     this.props.db.ref("index/").set(this.state.index + 1);
     this.props.db.ref("sightings/" + this.state.index).set(this.state.marker);
-    this.hideInfo();
+    this.hideSafeInfo();
   };
 
   render() {
@@ -187,8 +192,10 @@ class Map extends Component {
           descHandleChange={this.descHandleChange}
           deleteFromDatabase={this.deleteFromDatabase}
           hideInfo={this.hideInfo}
+          hideSaveInfo={this.hideSafeInfo}
           toggleInfo={this.toggleInfo}
           isOpen={this.state.infoBox}
+          isSaveOpen={this.state.saveInfoBox}
           googleMapURL={url}
           loadingElement={<div style={{ height: `100%` }} />}
           containerElement={<div style={{ height: `650px` }} />}

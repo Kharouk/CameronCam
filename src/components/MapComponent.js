@@ -61,7 +61,7 @@ const MapComponent = withScriptjs(
                 <>
                   {marker.img && <img src={marker.img} alt={marker.desc} />}
                   <p>{marker.desc}</p>
-                  {props.user.uid && props.user.uid === marker.uid && (
+                  {props.user && props.user.uid === marker.uid && (
                     <Button
                       isSaveButton={false}
                       deleteFromDatabase={() =>
@@ -126,7 +126,6 @@ class Map extends Component {
       .child(filename)
       .getDownloadURL()
       .then(url => {
-        console.log(url);
         const { marker } = this.state;
         marker.img = url;
         this.setState({ ...marker });
@@ -144,7 +143,6 @@ class Map extends Component {
   };
 
   markerHandleClick = num => {
-    console.log(this.state.infoBox);
     this.setState({ markerWindowIndex: num, infoBox: true });
   };
 
@@ -183,7 +181,6 @@ class Map extends Component {
   };
 
   render() {
-    console.log(this.props.user);
     return (
       <div>
         <MapComponent

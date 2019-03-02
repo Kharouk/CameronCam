@@ -40,7 +40,7 @@ class App extends Component {
       .auth()
       .createUserWithEmailAndPassword(email, password)
       .then(user => {
-        console.log(user);
+        // console.log(user);
       });
   };
 

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import * as firebase from "firebase";
 import "firebase/storage";
-import "firebase/auth";
 import Map from "./components/MapComponent";
 import Login from "./components/Login";
 import Header from "./components/Header";

@@ -27,14 +27,13 @@ class App extends Component {
           </h5>
         </div>
       );
-    } else {
-      return (
-        <div className="App">
-          <Header />
-          <Map db={db} />
-        </div>
-      );
     }
+    return (
+      <div className="App">
+        <Header />
+        <Map db={db} />
+      </div>
+    );
   };
   render() {
     return this.renderContent();

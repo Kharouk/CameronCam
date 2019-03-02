@@ -10,12 +10,13 @@ let config = {
   authDomain: process.env.REACT_APP_AUTH_DOMAIN,
   databaseURL: process.env.REACT_APP_DATABASE_URL,
   projectId: "cameron-cam",
-  storageBucket: "cameron-cam.appspot.com",
+  storageBucket: "gs://cameron-cam.appspot.com",
   messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID
 };
 
 firebase.initializeApp(config);
 const db = firebase.database();
+const storageRef = firebase.storage().ref("images");
 
 class App extends Component {
   renderContent = () => {
@@ -31,7 +32,7 @@ class App extends Component {
     return (
       <div className="App">
         <Header />
-        <Map db={db} />
+        <Map db={db} storage={storageRef} />
       </div>
     );
   };

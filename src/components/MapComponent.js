@@ -28,7 +28,10 @@ const MapComponent = withScriptjs(
         {props.isOpen && (
           <InfoWindow onCloseClick={props.closeSave}>
             <>
-              <ImageUpload handleUpload={props.handleUpload} />
+              <ImageUpload
+                handleUpload={props.handleImageUpload}
+                imageStorage={props.imageStorage}
+              />
               <Description handleChange={props.descHandleChange} />
               <Button
                 isSaveButton={true}
@@ -39,6 +42,7 @@ const MapComponent = withScriptjs(
         )}
       </Marker>
       {props.markers.map((marker, index) => {
+        console.log(marker);
         return (
           <Marker
             icon={cameron}
@@ -48,10 +52,14 @@ const MapComponent = withScriptjs(
           >
             {props.markerWindowIndex === index && (
               <InfoWindow onCloseClick={props.closeSave}>
-                <Button
-                  isSaveButton={false}
-                  deleteFromDatabase={() => props.deleteFromDatabase(marker)}
-                />
+                <>
+                  <img src={marker.img} alt="" />
+                  <p>{marker.desc}</p>
+                  <Button
+                    isSaveButton={false}
+                    deleteFromDatabase={() => props.deleteFromDatabase(marker)}
+                  />
+                </>
               </InfoWindow>
             )}
           </Marker>
@@ -65,12 +73,16 @@ class Map extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      marker: false,
+      marker: {
+        id: "",
+        lat: "",
+        lng: "",
+        title: "",
+        desc: "",
+        img: ""
+      },
       markerWindowIndex: 0,
       markers: [],
-      title: "",
-      desc: "",
-      img: "",
       saveButton: false,
       index: 0
     };
@@ -93,9 +105,22 @@ class Map extends Component {
     );
   }
 
+  handleImageUpload = filename => {
+    this.props.storage
+      .child(filename)
+      .getDownloadURL()
+      .then(url => {
+        console.log(url);
+        const { marker } = this.state;
+        marker.img = url;
+        this.setState({ ...marker });
+      });
+  };
+
   descHandleChange = e => {
-    this.setState({ desc: e.target.value });
-    console.log(this.state.desc);
+    const { marker } = this.state;
+    marker.desc = e.target.value;
+    this.setState({ ...marker });
   };
 
   deleteFromDatabase = marker => {
@@ -121,15 +146,11 @@ class Map extends Component {
     this.setState({
       marker: {
         id: this.state.index,
-        desc: this.state.desc,
-        img: this.state.img,
         lat: event.latLng.lat(),
         lng: event.latLng.lng()
       },
       saveButton: true
     });
-
-    console.log(this.state.marker);
   };
 
   saveToDatabase = () => {
@@ -150,6 +171,8 @@ class Map extends Component {
           onMapClick={e => this.saveCoordinates(e)}
           saveToDatabase={this.saveToDatabase}
           markerWindowIndex={this.state.markerWindowIndex}
+          handleImageUpload={this.handleImageUpload}
+          imageStorage={this.props.storage}
           descHandleChange={this.descHandleChange}
           deleteFromDatabase={this.deleteFromDatabase}
           closeSave={this.hideSave}

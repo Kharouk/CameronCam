@@ -8,6 +8,7 @@
     "react": "^16.8.3",
     "react-device-detect": "^1.6.2",
     "react-dom": "^16.8.3",
+    "react-firebase-file-uploader": "^2.4.2",
     "react-google-maps": "^9.4.5",
     "react-scripts": "2.1.5"
   },

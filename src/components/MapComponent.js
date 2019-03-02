@@ -59,7 +59,7 @@ const MapComponent = withScriptjs(
             {props.isOpen && props.markerWindowIndex === index && (
               <InfoWindow onCloseClick={props.hideInfo}>
                 <>
-                  <img src={marker.img} alt={marker.desc} />
+                  {marker.img && <img src={marker.img} alt={marker.desc} />}
                   <p>{marker.desc}</p>
                   {props.user.uid === marker.uid && (
                     <Button

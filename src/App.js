@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import * as firebase from "firebase";
 import "firebase/storage";
+import "firebase/auth";
 import Map from "./components/MapComponent";
 import Login from "./components/Login";
 import Header from "./components/Header";
@@ -44,7 +45,6 @@ class App extends Component {
   };
 
   handleSignout = () => {
-    console.log(firebase.auth().signOut());
     firebase.auth().signOut();
   };
 
@@ -67,7 +67,9 @@ class App extends Component {
             handleSignout={this.handleSignout}
           />
         )}
-        <button onClick={this.handleSignout}>Logout</button>
+        {firebase.auth().currentUser && (
+          <button onClick={this.handleSignout}>Logout</button>
+        )}
         <Header />
         <Map db={db} storage={storageRef} user={firebase.auth().currentUser} />
       </div>

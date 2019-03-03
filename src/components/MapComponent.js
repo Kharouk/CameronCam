@@ -21,31 +21,36 @@ const MapComponent = withScriptjs(
     <GoogleMap
       onClick={props.onMapClick}
       zoom={13}
-      defaultCenter={{ lat: 56.0119872993935, lng: -4.6038123275092175 }}
+      // Main:
+      // defaultCenter={{ lat: 56.0119872993935, lng: -4.6038123275092175 }}
+      // London:
+      defaultCenter={{ lat: 51.509, lng: -0.118092 }}
       defaultClickableIcons={false}
     >
       {/* Currently Selecting Marker: */}
-      <Marker
-        icon={cameron}
-        onClick={() => props.toggleInfo()}
-        position={props.marker}
-      >
-        {props.isSaveOpen && (
-          <InfoWindow onCloseClick={props.hideSaveInfo}>
-            <>
-              <ImageUpload
-                handleUpload={props.handleImageUpload}
-                imageStorage={props.imageStorage}
-              />
-              <Description handleChange={props.descHandleChange} />
-              <Button
-                isSaveButton={true}
-                saveToDatabase={props.saveToDatabase}
-              />
-            </>
-          </InfoWindow>
-        )}
-      </Marker>
+      {props.user && (
+        <Marker
+          icon={cameron}
+          onClick={() => props.toggleInfo()}
+          position={props.marker}
+        >
+          {props.isSaveOpen && (
+            <InfoWindow onCloseClick={props.hideSaveInfo}>
+              <>
+                <ImageUpload
+                  handleUpload={props.handleImageUpload}
+                  imageStorage={props.imageStorage}
+                />
+                <Description handleChange={props.descHandleChange} />
+                <Button
+                  isSaveButton={true}
+                  saveToDatabase={props.saveToDatabase}
+                />
+              </>
+            </InfoWindow>
+          )}
+        </Marker>
+      )}
 
       {/* Already saved Markers from DB: */}
       {props.markers.map((marker, index) => {
@@ -59,12 +64,16 @@ const MapComponent = withScriptjs(
             {props.isOpen && props.markerWindowIndex === index && (
               <InfoWindow onCloseClick={props.hideInfo}>
                 <>
-                  <img src={marker.img} alt={marker.desc} />
+                  {marker.img && <img src={marker.img} alt={marker.desc} />}
                   <p>{marker.desc}</p>
-                  <Button
-                    isSaveButton={false}
-                    deleteFromDatabase={() => props.deleteFromDatabase(marker)}
-                  />
+                  {props.user && props.user.uid === marker.uid && (
+                    <Button
+                      isSaveButton={false}
+                      deleteFromDatabase={() =>
+                        props.deleteFromDatabase(marker)
+                      }
+                    />
+                  )}
                 </>
               </InfoWindow>
             )}
@@ -122,7 +131,6 @@ class Map extends Component {
       .child(filename)
       .getDownloadURL()
       .then(url => {
-        console.log(url);
         const { marker } = this.state;
         marker.img = url;
         this.setState({ ...marker });
@@ -140,7 +148,6 @@ class Map extends Component {
   };
 
   markerHandleClick = num => {
-    console.log(this.state.infoBox);
     this.setState({ markerWindowIndex: num, infoBox: true });
   };
 
@@ -172,13 +179,16 @@ class Map extends Component {
 
   saveToDatabase = () => {
     this.props.db.ref("index/").set(this.state.index + 1);
-    this.props.db.ref("sightings/" + this.state.index).set(this.state.marker);
+    const { marker } = this.state;
+    marker.uid = this.props.user.uid;
+    this.props.db.ref("sightings/" + this.state.index).set(marker);
     this.hideSafeInfo();
   };
 
   render() {
     return (
       <div>
+        {!this.props.user && <h1>Sign in to report your sightings!</h1>}
         <MapComponent
           lat={51.52713}
           lng={-0.07806}
@@ -197,6 +207,7 @@ class Map extends Component {
           toggleInfo={this.toggleInfo}
           isOpen={this.state.infoBox}
           isSaveOpen={this.state.saveInfoBox}
+          user={this.props.user}
           googleMapURL={url}
           loadingElement={<div style={{ height: `100vh` }} />}
           containerElement={<div style={{ height: `650px` }} />}

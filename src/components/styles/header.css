@@ -7,6 +7,9 @@
 
 #cameron-logo {
   grid-column: 1;
+  width: 150px;
+  margin-top: 20px;
+  margin-left: 100px;
 }
 
 #cameron-pin {

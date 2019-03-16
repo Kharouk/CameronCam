@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./styles/header.css";
+import Navigation from './Navigation'
 const cameronPatriot = require("./styles/images/patriot.gif");
 const cameronBear = require("./styles/images/bear.gif");
 const cameronBold = require("./styles/images/bold.gif");
@@ -33,6 +34,7 @@ export default class Header extends Component {
         <p className="about-header" id="cameron-about">
           <a href="#about-us">about the project</a>
         </p>
+        <Navigation />
       </div>
     );
   }

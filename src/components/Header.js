@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import "./styles/header.css";
-<<<<<<< HEAD
-=======
 import Navigation from "./Navigation";
->>>>>>> about
 const cameronPatriot = require("./styles/images/patriot.gif");
 const cameronBear = require("./styles/images/bear.gif");
 const cameronBold = require("./styles/images/bold.gif");

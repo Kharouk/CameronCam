@@ -8,6 +8,7 @@ const cameronSpirit = require("./styles/images/spiritted.gif");
 const cameronTomato = require("./styles/images/toamto.gif");
 const cameronWig = require("./styles/images/wig.gif");
 const logo = require("./styles/images/logo_CC.png");
+
 export default class Header extends Component {
   randomImage = () => {
     const images = [
@@ -30,6 +31,7 @@ export default class Header extends Component {
           src={this.randomImage()}
           alt="David Cameron, A Patriot"
         />
+        <p>about the project</p>
       </div>
     );
   }

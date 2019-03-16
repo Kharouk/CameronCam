@@ -3,21 +3,27 @@ import "./styles/navigation.css";
 
 const Navigation = props => {
   return (
-    <div class="dotstyle dotstyle-fillup">
+    <div className="dotstyle dotstyle-fillup">
       <ul>
         <li>
-          <a className={props.main ? "dotstyle-selected" : ""} href="#main">
+          <a
+            className={props.location === 1 ? "dotstyle-selected" : ""}
+            href="#main"
+          >
             Main
           </a>
         </li>
         <li>
-          <a className={props.map ? "dotstyle-selected" : ""} href="#map">
+          <a
+            className={props.location === 2 ? "dotstyle-selected" : ""}
+            href="#map"
+          >
             Map
           </a>
         </li>
         <li>
           <a
-            className={props.about ? "dotstyle-selected" : ""}
+            className={props.location === 3 ? "dotstyle-selected" : ""}
             href="#about-us"
           >
             About

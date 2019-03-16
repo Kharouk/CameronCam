@@ -6,7 +6,6 @@ const cameronBear = require("./styles/images/bear.gif");
 const cameronBold = require("./styles/images/bold.gif");
 const cameronBag = require("./styles/images/paper_bag.gif");
 const cameronSpirit = require("./styles/images/spiritted.gif");
-const cameronTomato = require("./styles/images/toamto.gif");
 const cameronWig = require("./styles/images/wig.gif");
 const logo = require("./styles/images/logo_CC.png");
 
@@ -24,7 +23,7 @@ export default class Header extends Component {
   };
   render() {
     return (
-      <div className="body">
+      <div className="body" id="main">
         <img id="cameron-logo" src={logo} alt="camLogo" />
         <img
           id="cameron-pin"
@@ -35,7 +34,7 @@ export default class Header extends Component {
           <p className="about-header" id="cameron-about">
             <a href="#about-us">about the project</a>
           </p>
-          <Navigation main />
+          <Navigation location={this.props.location} />
         </div>
       </div>
     );

@@ -6,7 +6,7 @@ export default class About extends Component {
   render() {
     return (
       <>
-        <div className="about-body">
+        <div className="about-body" id="about-us">
           <img id="about-logo" src={logo} alt="camLogo" />
           <div id="text">
             <p className="main-txt">

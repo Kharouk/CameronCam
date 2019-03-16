@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 export default class Login extends Component {
   render() {
-    const { email, password, error } = this.props;
+    const { email, password } = this.props;
     return (
       <div>
         <form onSubmit={this.props.handleSubmit}>

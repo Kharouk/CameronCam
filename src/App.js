@@ -71,7 +71,7 @@ class App extends Component {
           <button onClick={this.handleSignout}>Logout</button>
         )}
         <Header />
-        <Map db={db} storage={storageRef} user={firebase.auth().currentUser}/>
+        <Map db={db} storage={storageRef} user={firebase.auth().currentUser} />
         <About />
       </div>
     );

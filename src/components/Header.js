@@ -17,7 +17,6 @@ export default class Header extends Component {
       cameronBold,
       cameronPatriot,
       cameronSpirit,
-      cameronTomato,
       cameronWig
     ];
     return images[Math.floor(Math.random() * images.length)];
@@ -31,7 +30,9 @@ export default class Header extends Component {
           src={this.randomImage()}
           alt="David Cameron, A Patriot"
         />
-        <p>about the project</p>
+        <p className="about-header" id="cameron-about">
+          <a href="#about-us">about the project</a>
+        </p>
       </div>
     );
   }

@@ -1,8 +1,22 @@
 .body {
   height: 100vh;
-  background: #2282C9;
+  background: #2282c9;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+}
+
+.about-header > a {
+  color: #fff200;
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid;
+  padding-bottom: 3px;
+}
+
+.about-header > a:hover {
+  color: #fff;
+  border-bottom: 0px solid;
+  transition: 0.1s ease;
 }
 
 #cameron-logo {
@@ -13,9 +27,11 @@
 }
 
 #cameron-pin {
-  grid-row: 1;
   grid-column: 2;
   align-self: center;
-  margin-top: 23%;
-  width: 120%;
+}
+
+#cameron-about {
+  padding-top: 10%;
+  justify-self: center;
 }

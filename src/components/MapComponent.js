@@ -187,7 +187,7 @@ class Map extends Component {
 
   render() {
     return (
-      <div>
+      <div id="map">
         {!this.props.user && <h1>Sign in to report your sightings!</h1>}
         <MapComponent
           lat={51.52713}

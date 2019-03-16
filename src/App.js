@@ -4,6 +4,7 @@ import "firebase/storage";
 import Map from "./components/MapComponent";
 import Login from "./components/Login";
 import Header from "./components/Header";
+import About from "./components/About";
 import { isMobile } from "react-device-detect";
 import "./App.css";
 
@@ -69,8 +70,9 @@ class App extends Component {
         {firebase.auth().currentUser && (
           <button onClick={this.handleSignout}>Logout</button>
         )}
-        <Header />
+        <Header location={this.state.location} />
         <Map db={db} storage={storageRef} user={firebase.auth().currentUser} />
+        <About />
       </div>
     );
   };

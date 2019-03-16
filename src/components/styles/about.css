@@ -1,0 +1,31 @@
+.about-body {
+  height: 100vh;
+  background: #2282C9;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+#about-logo {
+  transform: scale(0.4)
+}
+
+.main-txt {
+  line-height: 43px;
+  font-size: 34px;
+  color: #fff200;
+  font-family: sans-serif;
+  font-weight: 400;
+  text-decoration: underline;
+  width: 792px;
+  margin: auto;
+  padding-top: 20%;
+  text-align: left;
+}
+
+.contact-us {
+  line-height: 29px;
+  font-size: 17px;
+  color: #dbf6ff;
+  font-family: sans-serif;
+  position: absolute;
+}

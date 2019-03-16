@@ -20,7 +20,7 @@ const MapComponent = withScriptjs(
   withGoogleMap(props => (
     <GoogleMap
       onClick={props.onMapClick}
-      zoom={13}
+      zoom={3}
       // Main:
       // defaultCenter={{ lat: 56.0119872993935, lng: -4.6038123275092175 }}
       // London:
@@ -187,7 +187,7 @@ class Map extends Component {
 
   render() {
     return (
-      <div>
+      <div id="map">
         {!this.props.user && <h1>Sign in to report your sightings!</h1>}
         <MapComponent
           lat={51.52713}
@@ -210,7 +210,7 @@ class Map extends Component {
           user={this.props.user}
           googleMapURL={url}
           loadingElement={<div style={{ height: `100vh` }} />}
-          containerElement={<div style={{ height: `650px` }} />}
+          containerElement={<div style={{ height: `100vh` }} />}
           mapElement={<div style={{ height: `100vh` }} />}
         />
       </div>

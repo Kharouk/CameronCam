@@ -210,7 +210,7 @@ class Map extends Component {
           user={this.props.user}
           googleMapURL={url}
           loadingElement={<div style={{ height: `100vh` }} />}
-          containerElement={<div style={{ height: `650px` }} />}
+          containerElement={<div style={{ height: `100vh` }} />}
           mapElement={<div style={{ height: `100vh` }} />}
         />
       </div>

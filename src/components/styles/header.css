@@ -7,7 +7,7 @@
 
 #cameron-logo {
   grid-column: 1;
-  width: 55%;
+  width: 40%;
   margin-top: 9%;
   margin-left: 35%;
 }
@@ -16,4 +16,6 @@
   grid-row: 1;
   grid-column: 2;
   align-self: center;
+  margin-top: 23%;
+  width: 120%;
 }

@@ -20,7 +20,7 @@ const MapComponent = withScriptjs(
   withGoogleMap(props => (
     <GoogleMap
       onClick={props.onMapClick}
-      zoom={13}
+      zoom={3}
       // Main:
       // defaultCenter={{ lat: 56.0119872993935, lng: -4.6038123275092175 }}
       // London:

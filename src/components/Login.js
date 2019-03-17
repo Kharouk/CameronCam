@@ -29,6 +29,8 @@ export default class Login extends Component {
       handleRegisterSubmit,
       handleLoginSubmit,
       handleGoogleSubmit,
+      handleFacebookSubmit,
+      handleTwitterSubmit,
       handleInputChange
     } = this.props;
 
@@ -50,35 +52,56 @@ export default class Login extends Component {
           <button className="buttons register-button" onClick={this.register}>
             Register
           </button>
+
           {/* Handles Registration */}
           {register && (
-            <form onSubmit={handleRegisterSubmit} className="register--form">
-              <label htmlFor="email">What is your email?</label>
-              <input
-                type="text"
-                name="email"
-                className="email--input"
-                placeholder="Email"
-                value={email}
-                onChange={handleInputChange}
-              />
-              <label htmlFor="email">What is your password?</label>
-              <input
-                type="password"
-                name="password"
-                className="password--input"
-                placeholder="Password"
-                value={password}
-                onChange={handleInputChange}
-              />
-              <button onClick={handleGoogleSubmit}>Google Login</button>
-              <FontAwesomeIcon
-                onClick={handleGoogleSubmit}
-                icon={["fab", "google"]}
-              />
+            <>
+              <div className="auth--icons">
+                <FontAwesomeIcon
+                  onClick={handleGoogleSubmit}
+                  icon={["fab", "google"]}
+                  size="lg"
+                  className="auth--button"
+                />
+                <FontAwesomeIcon
+                  onClick={handleFacebookSubmit}
+                  icon={["fab", "facebook"]}
+                  size="lg"
+                  className="auth--button"
+                />
+                <FontAwesomeIcon
+                  onClick={handleTwitterSubmit}
+                  icon={["fab", "twitter"]}
+                  size="lg"
+                  className="auth--button"
+                />
+              </div>
               <br />
-              <button type="submit">Register</button>
-            </form>
+              <p>--- OR ---</p>
+              <form onSubmit={handleRegisterSubmit} className="register--form">
+                <label htmlFor="email">What is your email?</label>
+                <input
+                  type="text"
+                  name="email"
+                  className="email--input"
+                  placeholder="Email"
+                  value={email}
+                  onChange={handleInputChange}
+                />
+                <label htmlFor="email">What is your password?</label>
+                <input
+                  type="password"
+                  name="password"
+                  className="password--input"
+                  placeholder="Password"
+                  value={password}
+                  onChange={handleInputChange}
+                />
+
+                <br />
+                <button type="submit">Register</button>
+              </form>
+            </>
           )}
           {/* Handles Login Form */}
           {login && (

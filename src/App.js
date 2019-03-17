@@ -22,8 +22,6 @@ firebase.initializeApp(config);
 const db = firebase.database();
 const storageRef = firebase.storage().ref("images");
 
-var provider = new firebase.auth.GoogleAuthProvider();
-
 class App extends Component {
   state = {
     email: "",
@@ -56,6 +54,7 @@ class App extends Component {
   };
 
   handleGoogleSubmit = e => {
+    var provider = new firebase.auth.GoogleAuthProvider();
     firebase
       .auth()
       .signInWithPopup(provider)
@@ -63,7 +62,7 @@ class App extends Component {
         // This gives you a Google Access Token. You can use it to access the Google API.
         // var token = result.credential.accessToken;
         var user = result.user;
-        console.log("TCL: App -> user", user);
+        this.setState({ isUserLoggedIn: true });
       })
       .catch(function(error) {
         // var errorCode = error.code;
@@ -73,6 +72,22 @@ class App extends Component {
         // // The firebase.auth.AuthCredential type that was used.
         // var credential = error.credential;
         console.log(errorMessage);
+      });
+  };
+
+  handleFacebookSubmit = e => {
+    var provider = new firebase.auth.FacebookAuthProvider();
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then(function(result) {
+        var token = result.credential.accessToken;
+        var user = result.user;
+        this.setState({ isUserLoggedIn: true });
+      })
+      .catch(function(error) {
+        // var errorCode = error.code;
+        // var errorMessage = error.message;
       });
   };
 
@@ -121,7 +136,7 @@ class App extends Component {
           handleLoginSubmit={this.handleLoginSubmit}
           handleSignout={this.handleSignout}
           currentUser={firebase.auth().currentUser}
-          googleLogin={this.handleGoogleSubmit}
+          handleGoogleSubmit={this.handleGoogleSubmit}
         />
         <Map db={db} storage={storageRef} user={firebase.auth().currentUser} />
         <About />

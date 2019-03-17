@@ -20,7 +20,6 @@ let config = {
 firebase.initializeApp(config);
 const db = firebase.database();
 const storageRef = firebase.storage().ref("images");
-const currentUser = firebase.auth().currentUser;
 
 class App extends Component {
   state = {
@@ -32,7 +31,7 @@ class App extends Component {
 
   componentDidMount() {
     setTimeout(() => {
-      if (currentUser) {
+      if (firebase.auth().currentUser) {
         this.setState({ isUserLoggedIn: true });
       }
     }, 1000);
@@ -89,7 +88,7 @@ class App extends Component {
     return (
       <div className="App">
         <Header location={this.state.location} />
-        {!currentUser && (
+        {!firebase.auth().currentUser && (
           <h1 className="sign-in-header">Sign in to report your sightings!</h1>
         )}
         <Login
@@ -97,9 +96,9 @@ class App extends Component {
           handleRegisterSubmit={this.handleRegisterSubmit}
           handleLoginSubmit={this.handleLoginSubmit}
           handleSignout={this.handleSignout}
-          currentUser={currentUser}
+          currentUser={firebase.auth().currentUser}
         />
-        <Map db={db} storage={storageRef} user={currentUser} />
+        <Map db={db} storage={storageRef} user={firebase.auth().currentUser} />
         <About />
       </div>
     );

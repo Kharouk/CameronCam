@@ -3,7 +3,7 @@
 }
 
 .buttons {
-  color: #fff200;
+  color: #fff;
   background-color: #2282c9;
   border: none;
   font-weight: 600;
@@ -11,6 +11,10 @@
   margin-bottom: 10px;
   cursor: pointer;
   outline: 0;
+}
+.logout--body {
+  text-align: center;
+  padding: 3px;
 }
 
 .login-button {
@@ -27,7 +31,17 @@
 
 
 .buttons:hover {
-  color: #fff;
+  color: #fff200;
   border-bottom: 0px solid;
   transition: 0.1s ease;
+}
+
+.register--form .login--form {
+  padding-top: 2%;
+  padding-bottom: 2%;
+}
+
+.register--form > input, .login--form > input {
+  display: block;
+  margin: 10px auto;
 }

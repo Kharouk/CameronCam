@@ -24,11 +24,16 @@ export default class Login extends Component {
       handleLoginSubmit,
       handleInputChange
     } = this.props;
+
     const { login, register } = this.state;
     let renderLogin;
 
     if (currentUser) {
-      renderLogin = <button onClick={handleSignout}>Logout</button>;
+      renderLogin = (
+        <button className="logout--button" onClick={handleSignout}>
+          Logout
+        </button>
+      );
     } else {
       renderLogin = (
         <div className="auth-buttons">
@@ -40,17 +45,21 @@ export default class Login extends Component {
           </button>
           {/* Handles Registration */}
           {register && (
-            <form onSubmit={handleRegisterSubmit}>
+            <form onSubmit={handleRegisterSubmit} className="register--form">
+              <label htmlFor="email">What is your email?</label>
               <input
                 type="text"
                 name="email"
+                className="email--input"
                 placeholder="Email"
                 value={email}
                 onChange={handleInputChange}
               />
+              <label htmlFor="email">What is your password?</label>
               <input
                 type="password"
                 name="password"
+                className="password--input"
                 placeholder="Password"
                 value={password}
                 onChange={handleInputChange}
@@ -60,14 +69,17 @@ export default class Login extends Component {
           )}
           {/* Handles Login Form */}
           {login && (
-            <form onSubmit={handleLoginSubmit}>
+            <form onSubmit={handleLoginSubmit} className="login--form">
+              <label htmlFor="email">What is your email?</label>
               <input
                 type="text"
                 name="email"
+                className="email--input"
                 placeholder="Email"
                 value={email}
                 onChange={handleInputChange}
               />
+              <label htmlFor="email">What is your password?</label>
               <input
                 type="password"
                 name="password"
@@ -82,6 +94,6 @@ export default class Login extends Component {
       );
     }
 
-    return <div>{renderLogin}</div>;
+    return <div className="logout--body">{renderLogin}</div>;
   }
 }

@@ -29,23 +29,50 @@ class App extends Component {
     isUserLoggedIn: false
   };
 
+  componentDidMount() {
+    setTimeout(() => {
+      if (firebase.auth().currentUser) {
+        this.setState({ isUserLoggedIn: true });
+      }
+    }, 1000);
+  }
+
   handleInputChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
 
-  handleSubmit = event => {
+  handleRegisterSubmit = event => {
     event.preventDefault();
     const { email, password } = this.state;
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
       .then(user => {
-        // console.log(user);
+        this.setState({ isUserLoggedIn: true });
+      });
+  };
+
+  handleLoginSubmit = event => {
+    event.preventDefault();
+    const { email, password } = this.state;
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(user => {
+        this.setState({ isUserLoggedIn: true });
+      })
+      .catch(error => {
+        console.log(error);
       });
   };
 
   handleSignout = () => {
-    firebase.auth().signOut();
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        this.setState({ isUserLoggedIn: false });
+      });
   };
 
   renderContent = () => {
@@ -60,17 +87,17 @@ class App extends Component {
     }
     return (
       <div className="App">
-        {!firebase.auth().currentUser && (
-          <Login
-            handleInputChange={this.handleInputChange}
-            handleSubmit={this.handleSubmit}
-            handleSignout={this.handleSignout}
-          />
-        )}
-        {firebase.auth().currentUser && (
-          <button onClick={this.handleSignout}>Logout</button>
-        )}
         <Header location={this.state.location} />
+        {!firebase.auth().currentUser && (
+          <h1 className="sign-in-header">Sign in to report your sightings!</h1>
+        )}
+        <Login
+          handleInputChange={this.handleInputChange}
+          handleRegisterSubmit={this.handleRegisterSubmit}
+          handleLoginSubmit={this.handleLoginSubmit}
+          handleSignout={this.handleSignout}
+          currentUser={firebase.auth().currentUser}
+        />
         <Map db={db} storage={storageRef} user={firebase.auth().currentUser} />
         <About />
       </div>

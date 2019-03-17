@@ -58,19 +58,12 @@ class App extends Component {
     firebase
       .auth()
       .signInWithPopup(provider)
-      .then(function(result) {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        // var token = result.credential.accessToken;
+      .then(result => {
         var user = result.user;
         this.setState({ isUserLoggedIn: true });
       })
       .catch(function(error) {
-        // var errorCode = error.code;
         var errorMessage = error.message;
-        // // The email of the user's account used.
-        // var email = error.email;
-        // // The firebase.auth.AuthCredential type that was used.
-        // var credential = error.credential;
         console.log(errorMessage);
       });
   };
@@ -80,14 +73,24 @@ class App extends Component {
     firebase
       .auth()
       .signInWithPopup(provider)
-      .then(function(result) {
+      .then(result => {
         var token = result.credential.accessToken;
         var user = result.user;
         this.setState({ isUserLoggedIn: true });
       })
       .catch(function(error) {
-        // var errorCode = error.code;
-        // var errorMessage = error.message;
+        var errorMessage = error.message;
+        console.log(errorMessage);
+      });
+  };
+
+  handleTwitterSubmit = e => {
+    var provider = new firebase.auth.TwitterAuthProvider();
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then(result => {
+        this.setState({ isUserLoggedIn: true });
       });
   };
 
@@ -137,6 +140,8 @@ class App extends Component {
           handleSignout={this.handleSignout}
           currentUser={firebase.auth().currentUser}
           handleGoogleSubmit={this.handleGoogleSubmit}
+          handleFacebookSubmit={this.handleFacebookSubmit}
+          handleTwitterSubmit={this.handleTwitterSubmit}
         />
         <Map db={db} storage={storageRef} user={firebase.auth().currentUser} />
         <About />

@@ -29,6 +29,14 @@ class App extends Component {
     isUserLoggedIn: false
   };
 
+  componentDidMount() {
+    setTimeout(() => {
+      if (firebase.auth().currentUser) {
+        this.setState({ isUserLoggedIn: true });
+      }
+    }, 1000);
+  }
+
   handleInputChange = event => {
     this.setState({ [event.target.name]: event.target.value });
     console.log(firebase.auth().currentUser);

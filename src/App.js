@@ -31,6 +31,7 @@ class App extends Component {
 
   handleInputChange = event => {
     this.setState({ [event.target.name]: event.target.value });
+    console.log(firebase.auth().currentUser);
   };
 
   handleSubmit = event => {
@@ -40,12 +41,17 @@ class App extends Component {
       .auth()
       .createUserWithEmailAndPassword(email, password)
       .then(user => {
-        // console.log(user);
+        this.setState({ isUserLoggedIn: true });
       });
   };
 
   handleSignout = () => {
-    firebase.auth().signOut();
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        this.setState({ isUserLoggedIn: false });
+      });
   };
 
   renderContent = () => {

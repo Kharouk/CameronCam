@@ -74,16 +74,12 @@ class App extends Component {
     }
     return (
       <div className="App">
-        {!firebase.auth().currentUser && (
-          <Login
-            handleInputChange={this.handleInputChange}
-            handleSubmit={this.handleSubmit}
-            handleSignout={this.handleSignout}
-          />
-        )}
-        {firebase.auth().currentUser && (
-          <button onClick={this.handleSignout}>Logout</button>
-        )}
+        <Login
+          handleInputChange={this.handleInputChange}
+          handleSubmit={this.handleSubmit}
+          handleSignout={this.handleSignout}
+          currentUser={firebase.auth().currentUser}
+        />
         <Header location={this.state.location} />
         <Map db={db} storage={storageRef} user={firebase.auth().currentUser} />
         <About />

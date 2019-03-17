@@ -6,6 +6,7 @@ import Login from "./components/Login";
 import Header from "./components/Header";
 import About from "./components/About";
 import { isMobile } from "react-device-detect";
+
 import "./App.css";
 
 let config = {
@@ -48,6 +49,47 @@ class App extends Component {
       .auth()
       .createUserWithEmailAndPassword(email, password)
       .then(user => {
+        this.setState({ isUserLoggedIn: true });
+      });
+  };
+
+  handleGoogleSubmit = e => {
+    var provider = new firebase.auth.GoogleAuthProvider();
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then(result => {
+        var user = result.user;
+        this.setState({ isUserLoggedIn: true });
+      })
+      .catch(function(error) {
+        var errorMessage = error.message;
+        console.log(errorMessage);
+      });
+  };
+
+  handleFacebookSubmit = e => {
+    var provider = new firebase.auth.FacebookAuthProvider();
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then(result => {
+        var token = result.credential.accessToken;
+        var user = result.user;
+        this.setState({ isUserLoggedIn: true });
+      })
+      .catch(function(error) {
+        var errorMessage = error.message;
+        console.log(errorMessage);
+      });
+  };
+
+  handleTwitterSubmit = e => {
+    var provider = new firebase.auth.TwitterAuthProvider();
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then(result => {
         this.setState({ isUserLoggedIn: true });
       });
   };
@@ -97,6 +139,9 @@ class App extends Component {
           handleLoginSubmit={this.handleLoginSubmit}
           handleSignout={this.handleSignout}
           currentUser={firebase.auth().currentUser}
+          handleGoogleSubmit={this.handleGoogleSubmit}
+          handleFacebookSubmit={this.handleFacebookSubmit}
+          handleTwitterSubmit={this.handleTwitterSubmit}
         />
         <Map db={db} storage={storageRef} user={firebase.auth().currentUser} />
         <About />

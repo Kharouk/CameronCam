@@ -6,6 +6,7 @@ import Login from "./components/Login";
 import Header from "./components/Header";
 import About from "./components/About";
 import { isMobile } from "react-device-detect";
+
 import "./App.css";
 
 let config = {
@@ -20,6 +21,8 @@ let config = {
 firebase.initializeApp(config);
 const db = firebase.database();
 const storageRef = firebase.storage().ref("images");
+
+var provider = new firebase.auth.GoogleAuthProvider();
 
 class App extends Component {
   state = {
@@ -49,6 +52,27 @@ class App extends Component {
       .createUserWithEmailAndPassword(email, password)
       .then(user => {
         this.setState({ isUserLoggedIn: true });
+      });
+  };
+
+  handleGoogleSubmit = e => {
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then(function(result) {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        // var token = result.credential.accessToken;
+        var user = result.user;
+        console.log("TCL: App -> user", user);
+      })
+      .catch(function(error) {
+        // var errorCode = error.code;
+        var errorMessage = error.message;
+        // // The email of the user's account used.
+        // var email = error.email;
+        // // The firebase.auth.AuthCredential type that was used.
+        // var credential = error.credential;
+        console.log(errorMessage);
       });
   };
 
@@ -97,6 +121,7 @@ class App extends Component {
           handleLoginSubmit={this.handleLoginSubmit}
           handleSignout={this.handleSignout}
           currentUser={firebase.auth().currentUser}
+          googleLogin={this.handleGoogleSubmit}
         />
         <Map db={db} storage={storageRef} user={firebase.auth().currentUser} />
         <About />

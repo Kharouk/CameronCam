@@ -1,5 +1,11 @@
 import React, { Component } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { fab } from "@fortawesome/free-brands-svg-icons";
 import "./styles/login.css";
+
+library.add(fab);
+
 export default class Login extends Component {
   state = {
     login: false,
@@ -22,6 +28,7 @@ export default class Login extends Component {
       password,
       handleRegisterSubmit,
       handleLoginSubmit,
+      handleGoogleSubmit,
       handleInputChange
     } = this.props;
 
@@ -64,6 +71,12 @@ export default class Login extends Component {
                 value={password}
                 onChange={handleInputChange}
               />
+              <button onClick={handleGoogleSubmit}>Google Login</button>
+              <FontAwesomeIcon
+                onClick={handleGoogleSubmit}
+                icon={["fab", "google"]}
+              />
+              <br />
               <button type="submit">Register</button>
             </form>
           )}
@@ -87,6 +100,8 @@ export default class Login extends Component {
                 value={password}
                 onChange={handleInputChange}
               />
+              <button onClick={handleGoogleSubmit}>Google Login</button>
+              <br />
               <button type="submit">Login</button>
             </form>
           )}

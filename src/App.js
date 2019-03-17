@@ -39,10 +39,9 @@ class App extends Component {
 
   handleInputChange = event => {
     this.setState({ [event.target.name]: event.target.value });
-    console.log(firebase.auth().currentUser);
   };
 
-  handleSubmit = event => {
+  handleRegisterSubmit = event => {
     event.preventDefault();
     const { email, password } = this.state;
     firebase
@@ -50,6 +49,20 @@ class App extends Component {
       .createUserWithEmailAndPassword(email, password)
       .then(user => {
         this.setState({ isUserLoggedIn: true });
+      });
+  };
+
+  handleLoginSubmit = event => {
+    event.preventDefault();
+    const { email, password } = this.state;
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(user => {
+        this.setState({ isUserLoggedIn: true });
+      })
+      .catch(error => {
+        console.log(error);
       });
   };
 
@@ -76,7 +89,8 @@ class App extends Component {
       <div className="App">
         <Login
           handleInputChange={this.handleInputChange}
-          handleSubmit={this.handleSubmit}
+          handleRegisterSubmit={this.handleRegisterSubmit}
+          handleLoginSubmit={this.handleLoginSubmit}
           handleSignout={this.handleSignout}
           currentUser={firebase.auth().currentUser}
         />

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import "./styles/login.css";
 export default class Login extends Component {
   state = {
     login: false,
@@ -7,11 +7,11 @@ export default class Login extends Component {
   };
 
   login = () => {
-    this.setState({ login: true, register: false });
+    this.setState({ login: !this.state.login, register: false });
   };
 
   register = () => {
-    this.setState({ login: false, register: true });
+    this.setState({ login: false, register: !this.state.register });
   };
 
   render() {
@@ -24,17 +24,22 @@ export default class Login extends Component {
       handleLoginSubmit,
       handleInputChange
     } = this.props;
-
+    const { login, register } = this.state;
     let renderLogin;
 
     if (currentUser) {
       renderLogin = <button onClick={handleSignout}>Logout</button>;
     } else {
       renderLogin = (
-        <div>
-          <button onClick={this.login}>Login</button>
-          <button onClick={this.register}>Register</button>
-          {this.state.register && (
+        <div className="auth-buttons">
+          <button className="buttons login-button" onClick={this.login}>
+            Login
+          </button>
+          <button className="buttons register-button" onClick={this.register}>
+            Register
+          </button>
+          {/* Handles Registration */}
+          {register && (
             <form onSubmit={handleRegisterSubmit}>
               <input
                 type="text"
@@ -53,7 +58,8 @@ export default class Login extends Component {
               <button type="submit">Register</button>
             </form>
           )}
-          {this.state.login && (
+          {/* Handles Login Form */}
+          {login && (
             <form onSubmit={handleLoginSubmit}>
               <input
                 type="text"

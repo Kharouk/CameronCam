@@ -1,7 +1,9 @@
-/* .App {
-  text-align: center;
-} */
-
 html {
   background-color: #2282c9
+}
+
+.sign-in-header {
+  text-align: center;
+  color: #fff200;
+  font-weight: 400;
 }

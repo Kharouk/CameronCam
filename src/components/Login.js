@@ -86,10 +86,7 @@ export default class Login extends Component {
             Email us :
             <a href="mailto:wherescameron@gmail.com?Subject=I%20have%20seen%20David" target="_top">Send Mail</a>
           </p>
-          <p>
-          <b>Note:</b> To report your sighting, sign in or email us.
-          </p>
-
+          
           {/* Handles Registration */}
           {register && (
             <>

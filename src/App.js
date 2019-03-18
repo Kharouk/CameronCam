@@ -131,7 +131,7 @@ class App extends Component {
       <div className="App">
         <Header location={this.state.location} />
         {!firebase.auth().currentUser && (
-          <h1 className="sign-in-header">Sign in to report your sightings!</h1>
+          <h1 className="sign-in-header">To report your sightings, sign in or email us!</h1>
         )}
         <Login
           handleInputChange={this.handleInputChange}

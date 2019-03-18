@@ -82,7 +82,6 @@ export default class Login extends Component {
           <button className="buttons register-button" onClick={this.register}>
             Register
           </button>
-
           {/* Handles Registration */}
           {register && (
             <>

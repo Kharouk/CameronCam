@@ -14,7 +14,7 @@ const Button = props => {
   }
 
   return (
-    <div>
+    <div style={{ textAlign: "center" }}>
       <button
         style={{
           color,

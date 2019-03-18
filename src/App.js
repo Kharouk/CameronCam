@@ -25,6 +25,7 @@ const storageRef = firebase.storage().ref("images");
 class App extends Component {
   state = {
     email: "",
+    username: "",
     password: "",
     error: null,
     isUserLoggedIn: false
@@ -34,8 +35,9 @@ class App extends Component {
     setTimeout(() => {
       if (firebase.auth().currentUser) {
         this.setState({ isUserLoggedIn: true });
+        firebase.auth().currentUser.likedMarkers = [];
       }
-    }, 1000);
+    }, 2000);
   }
 
   handleInputChange = event => {
@@ -44,10 +46,16 @@ class App extends Component {
 
   handleRegisterSubmit = event => {
     event.preventDefault();
-    const { email, password } = this.state;
+    const { email, password, username } = this.state;
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
+      .then(() => {
+        const user = firebase.auth().currentUser;
+        user.updateProfile({
+          displayName: username
+        });
+      })
       .then(user => {
         this.setState({ isUserLoggedIn: true });
       });

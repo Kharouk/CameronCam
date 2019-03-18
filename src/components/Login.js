@@ -57,10 +57,10 @@ export default class Login extends Component {
       currentUser,
       handleSignout,
       email,
+      username,
       password,
       handleRegisterSubmit,
       handleLoginSubmit,
-      handleGoogleSubmit,
       handleInputChange
     } = this.props;
 
@@ -69,9 +69,14 @@ export default class Login extends Component {
 
     if (currentUser) {
       renderLogin = (
-        <button className="logout--button" onClick={handleSignout}>
-          Logout
-        </button>
+        <>
+          {currentUser.displayName && (
+            <h1>Welcome Back {currentUser.displayName}</h1>
+          )}
+          <button className="logout--button" onClick={handleSignout}>
+            Logout
+          </button>
+        </>
       );
     } else {
       renderLogin = (
@@ -88,6 +93,15 @@ export default class Login extends Component {
             <>
               {this.icons()}
               <form onSubmit={handleRegisterSubmit} className="register--form">
+                <label htmlFor="username">What is your username?</label>
+                <input
+                  type="text"
+                  name="username"
+                  className="username--input"
+                  placeholder="username"
+                  value={username}
+                  onChange={handleInputChange}
+                />
                 <label htmlFor="email">What is your email?</label>
                 <input
                   type="text"
@@ -134,7 +148,6 @@ export default class Login extends Component {
                   value={password}
                   onChange={handleInputChange}
                 />
-                <button onClick={handleGoogleSubmit}>Google Login</button>
                 <br />
                 <button type="submit">Login</button>
               </form>

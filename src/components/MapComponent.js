@@ -9,8 +9,16 @@ import {
   Marker,
   InfoWindow
 } from "react-google-maps";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { fab } from "@fortawesome/free-brands-svg-icons";
+library.add(fab);
 
 const cameron = require("./styles/images/pin.png");
+
+const likeButton = {
+  cursor: "pointer"
+};
 
 let url = `https://maps.googleapis.com/maps/api/js?key=${
   process.env.REACT_APP_GOOGLE_API_KEY
@@ -36,7 +44,7 @@ const MapComponent = withScriptjs(
         >
           {props.isSaveOpen && (
             <InfoWindow onCloseClick={props.hideSaveInfo}>
-              <>
+              <div style={{ textAlign: "center", margin: "0 auto" }}>
                 <ImageUpload
                   handleUpload={props.handleImageUpload}
                   imageStorage={props.imageStorage}
@@ -46,7 +54,7 @@ const MapComponent = withScriptjs(
                   isSaveButton={true}
                   saveToDatabase={props.saveToDatabase}
                 />
-              </>
+              </div>
             </InfoWindow>
           )}
         </Marker>
@@ -63,9 +71,18 @@ const MapComponent = withScriptjs(
           >
             {props.isOpen && props.markerWindowIndex === index && (
               <InfoWindow onCloseClick={props.hideInfo}>
-                <>
+                <div style={{ textAlign: "center", margin: "0 auto" }}>
                   {marker.img && <img src={marker.img} alt={marker.desc} />}
                   <p>{marker.desc}</p>
+                  {marker.username && <p>Posted by: {marker.username}</p>}
+                  <FontAwesomeIcon
+                    icon={["fab", "gratipay"]}
+                    size="3x"
+                    color="#fff200"
+                    style={likeButton}
+                    onClick={() => props.handleLike(marker)}
+                  />
+                  <p>{marker.likes}</p>
                   {props.user && props.user.uid === marker.uid && (
                     <Button
                       isSaveButton={false}
@@ -74,7 +91,7 @@ const MapComponent = withScriptjs(
                       }
                     />
                   )}
-                </>
+                </div>
               </InfoWindow>
             )}
           </Marker>
@@ -147,6 +164,30 @@ class Map extends Component {
     this.props.db.ref("sightings/" + marker.id).set(null);
   };
 
+  handleLike = marker => {
+    let { likedUsers, likes } = marker;
+    Object.values(likedUsers).forEach(value => {
+      if (value !== this.props.user.uid) {
+        likedUsers[this.props.user.uid] = this.props.user.uid;
+        likes = likes + 1;
+      } else {
+        likes = likes - 1;
+        console.log("here");
+      }
+    });
+
+    this.props.db
+      .ref("sightings/" + marker.id)
+      .set({
+        ...marker,
+        likes: likes,
+        likedUsers: likedUsers
+      })
+      .then(() => {
+        console.log("like:", marker);
+      });
+  };
+
   markerHandleClick = num => {
     this.setState({ markerWindowIndex: num, infoBox: true });
   };
@@ -181,6 +222,9 @@ class Map extends Component {
     this.props.db.ref("index/").set(this.state.index + 1);
     const { marker } = this.state;
     marker.uid = this.props.user.uid;
+    marker.username = this.props.user.displayName;
+    marker.likes = 0;
+    marker.likedUsers = { initial: 0 };
     this.props.db.ref("sightings/" + this.state.index).set(marker);
     this.hideSafeInfo();
   };
@@ -204,6 +248,7 @@ class Map extends Component {
           hideInfo={this.hideInfo}
           hideSaveInfo={this.hideSafeInfo}
           toggleInfo={this.toggleInfo}
+          handleLike={this.handleLike}
           isOpen={this.state.infoBox}
           isSaveOpen={this.state.saveInfoBox}
           user={this.props.user}

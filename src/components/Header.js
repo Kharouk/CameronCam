@@ -23,7 +23,7 @@ export default class Header extends Component {
   };
   render() {
     return (
-      <div className="body" id="main">
+      <div className="body" id="header--main">
         <img id="cameron-logo" src={logo} alt="camLogo" />
         <img
           id="cameron-pin"
@@ -31,8 +31,10 @@ export default class Header extends Component {
           alt="David Cameron, A Patriot"
         />
         <div>
-          <p className="about-header" id="cameron-about">
-            <a href="#about-us">about the project</a>
+          <p className="about-header">
+            <a href="#about-us" id="cameron-about">
+              about the project
+            </a>
           </p>
           <Navigation location={this.props.location} />
         </div>

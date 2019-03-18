@@ -1,5 +1,6 @@
 .body {
   height: 100vh;
+  width: 100vw;
   background: #2282c9;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -34,4 +35,22 @@
 #cameron-about {
   padding-top: 10%;
   justify-self: center;
+  align-self: auto;
+}
+
+@media (max-width: 479px) {
+  #cameron-logo {
+    width: 100%;
+    justify-self: center;
+  }
+  #cameron-about {
+    width: 100%;
+    align-self: center;
+    justify-self: center;
+  }
+  #cameron-pin {
+    width: 200%;
+    align-self: center;
+    justify-self: center;
+  }
 }

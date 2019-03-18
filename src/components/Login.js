@@ -82,11 +82,6 @@ export default class Login extends Component {
           <button className="buttons register-button" onClick={this.register}>
             Register
           </button>
-          <p>
-            Email us :
-            <a href="mailto:wherescameron@gmail.com?Subject=I%20have%20seen%20David" target="_top">Send Mail</a>
-          </p>
-          
           {/* Handles Registration */}
           {register && (
             <>

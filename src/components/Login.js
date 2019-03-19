@@ -68,7 +68,7 @@ export default class Login extends Component {
 
     if (currentUser) {
       renderLogin = (
-        <button className="logout--button" onClick={handleSignout}>
+        <button className="logout--button buttons " onClick={handleSignout}>
           Logout
         </button>
       );
@@ -93,9 +93,10 @@ export default class Login extends Component {
                   className="email--input"
                   placeholder="Email"
                   value={email}
+                  autoComplete
                   onChange={handleInputChange}
                 />
-                <label htmlFor="email">What is your password?</label>
+                <label htmlFor="email">Choose a password</label>
                 <input
                   type="password"
                   name="password"
@@ -120,6 +121,7 @@ export default class Login extends Component {
                   className="email--input"
                   placeholder="Email"
                   value={email}
+                  autoComplete
                   onChange={handleInputChange}
                 />
                 <label htmlFor="email">What is your password?</label>

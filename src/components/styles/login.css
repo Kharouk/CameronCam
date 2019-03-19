@@ -17,7 +17,7 @@
   padding: 3px;
 }
 
-.login-button {
+.login-button, .logout--button {
   border-bottom: 1px solid;
   padding-bottom: 3px;
   margin-right: 50px;

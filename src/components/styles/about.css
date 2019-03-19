@@ -16,7 +16,7 @@
   font-weight: 400;
   text-decoration: underline;
   margin-left: 25%;
-  width: 70%;
+  width: 50%;
   text-align: left;
 }
 
@@ -27,4 +27,20 @@
   color: #dbf6ff;
   font-family: sans-serif;
   position: absolute;
+}
+
+@media (max-width: 500px) {
+  .p--text {
+    margin: 0 auto;
+  }
+
+  .contact-us {
+    position: unset;
+  }
+
+  .main-txt {
+    width: 80%;
+    margin: 0 auto;
+    font-size: 20px;
+  }
 }

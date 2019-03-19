@@ -68,7 +68,7 @@ export default class Login extends Component {
 
     if (currentUser) {
       renderLogin = (
-        <button className="logout--button buttons " onClick={handleSignout}>
+        <button className="logout--button buttons" onClick={handleSignout}>
           Logout
         </button>
       );
@@ -105,7 +105,9 @@ export default class Login extends Component {
                   value={password}
                   onChange={handleInputChange}
                 />
-                <button type="submit">Register</button>
+                <button className="submit--button buttons" type="submit">
+                  Register
+                </button>
               </form>
             </>
           )}
@@ -132,7 +134,9 @@ export default class Login extends Component {
                   value={password}
                   onChange={handleInputChange}
                 />
-                <button type="submit">Login</button>
+                <button className="submit--button buttons" type="submit">
+                  Login
+                </button>
               </form>
             </>
           )}

@@ -60,7 +60,6 @@ export default class Login extends Component {
       password,
       handleRegisterSubmit,
       handleLoginSubmit,
-      handleGoogleSubmit,
       handleInputChange
     } = this.props;
 

@@ -125,15 +125,6 @@ class App extends Component {
   };
 
   renderContent = () => {
-    if (isMobile) {
-      return (
-        <div>
-          <h5 style={{ textAlign: "center" }}>
-            Please view this page on desktop
-          </h5>
-        </div>
-      );
-    }
     return (
       <div className="App">
         <Header location={this.state.location} />

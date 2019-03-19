@@ -60,7 +60,6 @@ export default class Login extends Component {
       password,
       handleRegisterSubmit,
       handleLoginSubmit,
-      handleGoogleSubmit,
       handleInputChange
     } = this.props;
 
@@ -91,21 +90,24 @@ export default class Login extends Component {
                 <input
                   type="text"
                   name="email"
-                  className="email--input"
+                  className="input__fields"
                   placeholder="Email"
                   value={email}
+                  autoComplete
                   onChange={handleInputChange}
                 />
-                <label htmlFor="email">What is your password?</label>
+                <label htmlFor="email">Choose a password</label>
                 <input
                   type="password"
                   name="password"
-                  className="password--input"
+                  className="input__fields"
                   placeholder="Password"
                   value={password}
                   onChange={handleInputChange}
                 />
-                <button type="submit">Register</button>
+                <button className="submit--button buttons" type="submit">
+                  Register
+                </button>
               </form>
             </>
           )}
@@ -118,20 +120,24 @@ export default class Login extends Component {
                 <input
                   type="text"
                   name="email"
-                  className="email--input"
+                  className="input__fields"
                   placeholder="Email"
                   value={email}
+                  autoComplete
                   onChange={handleInputChange}
                 />
                 <label htmlFor="email">What is your password?</label>
                 <input
                   type="password"
                   name="password"
+                  className="input__fields"
                   placeholder="Password"
                   value={password}
                   onChange={handleInputChange}
                 />
-                <button type="submit">Login</button>
+                <button className="submit--button buttons" type="submit">
+                  Login
+                </button>
               </form>
             </>
           )}

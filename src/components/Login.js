@@ -82,7 +82,6 @@ export default class Login extends Component {
           <button className="buttons register-button" onClick={this.register}>
             Register
           </button>
-
           {/* Handles Registration */}
           {register && (
             <>
@@ -106,8 +105,6 @@ export default class Login extends Component {
                   value={password}
                   onChange={handleInputChange}
                 />
-
-                <br />
                 <button type="submit">Register</button>
               </form>
             </>
@@ -134,8 +131,6 @@ export default class Login extends Component {
                   value={password}
                   onChange={handleInputChange}
                 />
-                <button onClick={handleGoogleSubmit}>Google Login</button>
-                <br />
                 <button type="submit">Login</button>
               </form>
             </>

@@ -36,7 +36,7 @@ const MapComponent = withScriptjs(
         >
           {props.isSaveOpen && (
             <InfoWindow onCloseClick={props.hideSaveInfo}>
-              <>
+              <div style={{ textAlign: "center", margin: "0 auto" }}>
                 <ImageUpload
                   handleUpload={props.handleImageUpload}
                   imageStorage={props.imageStorage}
@@ -46,7 +46,7 @@ const MapComponent = withScriptjs(
                   isSaveButton={true}
                   saveToDatabase={props.saveToDatabase}
                 />
-              </>
+              </div>
             </InfoWindow>
           )}
         </Marker>
@@ -63,7 +63,7 @@ const MapComponent = withScriptjs(
           >
             {props.isOpen && props.markerWindowIndex === index && (
               <InfoWindow onCloseClick={props.hideInfo}>
-                <>
+                <div style={{ textAlign: "center", margin: "0 auto" }}>
                   {marker.img && <img src={marker.img} alt={marker.desc} />}
                   <p>{marker.desc}</p>
                   {props.user && props.user.uid === marker.uid && (
@@ -74,7 +74,7 @@ const MapComponent = withScriptjs(
                       }
                     />
                   )}
-                </>
+                </div>
               </InfoWindow>
             )}
           </Marker>

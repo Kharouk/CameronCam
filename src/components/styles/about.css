@@ -35,12 +35,14 @@
   }
 
   .contact-us {
-    position: unset;
+    margin-left: 10%;
+    /* padding-bottom: 10%; */
   }
 
   .main-txt {
     width: 80%;
     margin: 0 auto;
     font-size: 20px;
+    padding-bottom: 10%;
   }
 }

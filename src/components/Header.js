@@ -36,7 +36,7 @@ export default class Header extends Component {
               about the project
             </a>
           </p>
-          <Navigation location={this.props.location} />
+          {/* <Navigation location={this.props.location} /> */}
         </div>
       </div>
     );

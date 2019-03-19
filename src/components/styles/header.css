@@ -1,6 +1,6 @@
 .body {
   height: 100vh;
-  width: 100vw;
+  /* width: 100vw; */
   background: #2282c9;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -38,7 +38,7 @@
   align-self: auto;
 }
 
-@media (max-width: 479px) {
+@media (max-width: 500px) {
   #cameron-logo {
     width: 100%;
     justify-self: center;

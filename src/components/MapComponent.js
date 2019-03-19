@@ -208,9 +208,9 @@ class Map extends Component {
           isSaveOpen={this.state.saveInfoBox}
           user={this.props.user}
           googleMapURL={url}
-          loadingElement={<div style={{ height: `100vh` }} />}
-          containerElement={<div style={{ height: `100vh` }} />}
-          mapElement={<div style={{ height: `100vh` }} />}
+          loadingElement={<div style={{ height: `100vh`, width: `100vw` }} />}
+          containerElement={<div style={{ height: `100vh`, width: `100vw` }} />}
+          mapElement={<div style={{ height: `100vh`, width: `100vw` }} />}
         />
       </div>
     );

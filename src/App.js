@@ -5,7 +5,7 @@ import Map from "./components/MapComponent";
 import Login from "./components/Login";
 import Header from "./components/Header";
 import About from "./components/About";
-import { isMobile } from "react-device-detect";
+// import { isMobile } from "react-device-detect";
 
 import "./App.css";
 
@@ -118,15 +118,6 @@ class App extends Component {
   };
 
   renderContent = () => {
-    if (isMobile) {
-      return (
-        <div>
-          <h5 style={{ textAlign: "center" }}>
-            Please view this page on desktop
-          </h5>
-        </div>
-      );
-    }
     return (
       <div className="App">
         <Header location={this.state.location} />

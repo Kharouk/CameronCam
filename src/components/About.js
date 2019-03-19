@@ -21,12 +21,12 @@ export default class About extends Component {
     const { aboutContent } = this.state;
     return (
       <>
-        {console.log(aboutContent)}
         {aboutContent.fields && (
           <div className="about-body" id="about-us">
             <div className="about--left">
               <img id="about-logo" src={logo} alt="camLogo" />
               <p
+                className="createdby__text"
                 dangerouslySetInnerHTML={this.createHtml(
                   aboutContent.fields.createdBy
                 )}

@@ -29,3 +29,13 @@
   font-family: sans-serif;
   position: absolute;
 }
+
+.createdby__text {
+  width: 70%;
+  margin-left: 20%;
+  color: #dbf6ff;
+}
+
+.createdby__text > a {
+  color: #dbf6ff;
+}

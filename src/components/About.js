@@ -7,7 +7,9 @@ export default class About extends Component {
     return (
       <>
         <div className="about-body" id="about-us">
-          <img id="about-logo" src={logo} alt="camLogo" />
+          <a href="#header-main">
+            <img id="about-logo" src={logo} alt="camLogo" />
+          </a>
           <div id="text">
             <p className="main-txt p--text">
               The Tories were members of two political parties which existed

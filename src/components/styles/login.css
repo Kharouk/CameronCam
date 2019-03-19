@@ -17,10 +17,24 @@
   padding: 3px;
 }
 
-.login-button, .logout--button {
+.login-button {
   border-bottom: 1px solid;
   padding-bottom: 3px;
   margin-right: 50px;
+}
+
+.logout--button {
+  color: #fff;
+  background-color: #2282c9;
+  border: none;
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 15px;
+  cursor: pointer;
+  outline: 0;
+  border: 1px solid;
+  padding: 10px;
+  border-radius: 5%;
 }
 
 .auth--icons {
@@ -67,8 +81,19 @@
   margin-top: 1%;
 }
 
-.submit--button:hover {
+.submit--button:hover, .logout--button:hover {
   background: #fff;
   color: #222;
   border: 1px solid #fff;
+  transition: 0.4s ease;
+}
+
+.input__fields {
+  width: 200px;
+  font: inherit;
+  color: #a3a3a3;
+  box-shadow: 0 6px 10px 0 rgba(0, 0, 0 , .1);
+  border: 0;
+  outline: none;
+  padding: 10px 18px;
 }

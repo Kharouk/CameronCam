@@ -68,7 +68,7 @@ export default class Login extends Component {
 
     if (currentUser) {
       renderLogin = (
-        <button className="logout--button buttons" onClick={handleSignout}>
+        <button className="logout--button" onClick={handleSignout}>
           Logout
         </button>
       );
@@ -90,7 +90,7 @@ export default class Login extends Component {
                 <input
                   type="text"
                   name="email"
-                  className="email--input"
+                  className="input__fields"
                   placeholder="Email"
                   value={email}
                   autoComplete
@@ -100,7 +100,7 @@ export default class Login extends Component {
                 <input
                   type="password"
                   name="password"
-                  className="password--input"
+                  className="input__fields"
                   placeholder="Password"
                   value={password}
                   onChange={handleInputChange}
@@ -120,7 +120,7 @@ export default class Login extends Component {
                 <input
                   type="text"
                   name="email"
-                  className="email--input"
+                  className="input__fields"
                   placeholder="Email"
                   value={email}
                   autoComplete
@@ -130,6 +130,7 @@ export default class Login extends Component {
                 <input
                   type="password"
                   name="password"
+                  className="input__fields"
                   placeholder="Password"
                   value={password}
                   onChange={handleInputChange}

@@ -55,6 +55,10 @@ Explain what these tests test and why
 Give an example
 ```
 
+## Contributing
+
+As you can see we have terrible test coverage and we are hoping to go back up to 70%, if you would like to contribute and write some tests for us, that would mean a lot! 🤗
+
 ## Deployment
 
 Add additional notes about how to deploy this on a live system
@@ -64,10 +68,6 @@ Add additional notes about how to deploy this on a live system
 * [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
 * [Maven](https://maven.apache.org/) - Dependency Management
 * [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Versioning
 

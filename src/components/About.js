@@ -24,7 +24,9 @@ export default class About extends Component {
         {aboutContent.fields && (
           <div className="about-body" id="about-us">
             <div className="about--left">
-              <img id="about-logo" src={logo} alt="camLogo" />
+              <a href="#header-main">
+                <img id="about-logo" src={logo} alt="camLogo" />
+              </a>
               <p
                 className="createdby__text"
                 dangerouslySetInnerHTML={this.createHtml(

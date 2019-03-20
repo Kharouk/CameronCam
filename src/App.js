@@ -5,9 +5,16 @@ import Map from "./components/MapComponent";
 import Login from "./components/Login";
 import Header from "./components/Header";
 import About from "./components/About";
-// import { isMobile } from "react-device-detect";
+import { isMobile } from "react-device-detect";
+// backend content:
+import * as contentful from "contentful";
 
 import "./App.css";
+
+const client = contentful.createClient({
+  space: process.env.REACT_APP_CONTENTFUL_SPACE,
+  accessToken: process.env.REACT_APP_CONTENTFUL_TOKEN
+});
 
 let config = {
   apiKey: process.env.REACT_APP_FIREBASE_API,
@@ -144,7 +151,7 @@ class App extends Component {
           handleTwitterSubmit={this.handleTwitterSubmit}
         />
         <Map db={db} storage={storageRef} user={firebase.auth().currentUser} />
-        <About />
+        <About contentful={client} />
       </div>
     );
   };

@@ -9,7 +9,11 @@ import {
   Marker,
   InfoWindow
 } from "react-google-maps";
-import { FacebookShareButton, TwitterShareButton } from "react-share";
+import {
+  FacebookShareButton,
+  TwitterShareButton,
+  RedditShareButton
+} from "react-share";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Geocode from "react-geocode";
 
@@ -28,17 +32,18 @@ const SocialLinks = marker => {
   Geocode.fromLatLng(marker.lat, marker.lng).then(
     response => {
       setCity(response.results[0].address_components[2].long_name);
-      setCountry(response.results[0].address_components[5].long_name);
       if (city !== null) {
-        setQuote(
-          `David Cameron has been spotted nearby ${city} in ${country}!`
-        );
+        setQuote(`David Cameron has been spotted around ${city}!`);
       } else {
-        setQuote(`David Cameron has been spotted nearby you!`);
+        setQuote(
+          `I spotted David Cameron with #CameronCam! Help us find him at CameronCam.com!`
+        );
       }
     },
     error => {
-      setQuote(`David Cameron has been spotted nearby you!`);
+      setQuote(
+        `I spotted David Cameron with #CameronCam! Help us find him at CameronCam.com!`
+      );
     }
   );
   return (
@@ -48,15 +53,13 @@ const SocialLinks = marker => {
         url="https://cameron-cam.surge.sh"
         hashtag="#cameroncam"
         style={{
-          width: "20%",
-          float: "left",
-          marginLeft: "30%",
+          display: "inline-block",
           outline: "none"
         }}
       >
         <FontAwesomeIcon
           icon={["fab", "facebook"]}
-          size="3x"
+          size="2x"
           className="share--button"
         />
       </FacebookShareButton>
@@ -64,14 +67,31 @@ const SocialLinks = marker => {
         title={quote}
         hashtags={["cameroncam", "brexit"]}
         url="https://cameron-cam.surge.sh"
-        style={{ width: "20%", float: "left", outline: "none" }}
+        style={{
+          float: "left",
+          outline: "none"
+        }}
       >
         <FontAwesomeIcon
           icon={["fab", "twitter"]}
-          size="3x"
+          size="2x"
           className="share--button"
         />
       </TwitterShareButton>
+      <RedditShareButton
+        title={quote}
+        url="https://cameron-cam.surge.sh"
+        style={{
+          float: "right",
+          outline: "none"
+        }}
+      >
+        <FontAwesomeIcon
+          icon={["fab", "reddit"]}
+          size="2x"
+          className="share--button"
+        />
+      </RedditShareButton>
     </div>
   );
 };

@@ -32,7 +32,9 @@ const SocialLinks = marker => {
     response => {
       setCity(response.results[0].address_components[2].long_name);
       if (city !== null) {
-        setQuote(`David Cameron has been spotted around ${city}!`);
+        setQuote(
+          `I spotted David Cameron around ${city} with CameronCam! Help us find him at CameronCam.com!`
+        );
       } else {
         setQuote(
           `I spotted David Cameron with #CameronCam! Help us find him at CameronCam.com!`
@@ -143,7 +145,13 @@ const MapComponent = withScriptjs(
             {props.isOpen && props.markerWindowIndex === index && (
               <InfoWindow onCloseClick={props.hideInfo}>
                 <div style={{ textAlign: "center", margin: "0 auto" }}>
-                  {marker.img && <img src={marker.img} alt={marker.desc} />}
+                  {marker.img && (
+                    <img
+                      src={marker.img}
+                      alt={marker.desc}
+                      onLoad={() => props.handleImageLoad()}
+                    />
+                  )}
                   <p>{marker.desc}</p>
                   {SocialLinks(marker)}
                   {props.user && props.user.uid === marker.uid && (
@@ -180,7 +188,8 @@ class Map extends Component {
       markers: [],
       infoBox: false,
       saveInfoBox: true,
-      index: 0
+      index: 0,
+      imageLoaded: false
     };
   }
 
@@ -215,6 +224,10 @@ class Map extends Component {
         marker.img = url;
         this.setState({ ...marker });
       });
+  };
+
+  handleImageLoad = () => {
+    this.setState({ imageLoaded: !this.state.imageLoaded });
   };
 
   descHandleChange = e => {
@@ -288,6 +301,8 @@ class Map extends Component {
           isSaveOpen={this.state.saveInfoBox}
           user={this.props.user}
           googleMapURL={url}
+          handleImageLoad={this.handleImageLoad}
+          imageLoaded={this.state.imageLoaded}
           loadingElement={<div style={{ height: `100vh`, width: `100vw` }} />}
           containerElement={<div style={{ height: `100vh`, width: `100vw` }} />}
           mapElement={<div style={{ height: `100vh`, width: `100vw` }} />}

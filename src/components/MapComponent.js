@@ -51,7 +51,7 @@ const SocialLinks = marker => {
     <div className="social--links">
       <FacebookShareButton
         quote={quote}
-        url="https://cameron-cam.surge.sh"
+        url="www.cameroncam.com"
         hashtag="#cameroncam"
         style={{
           display: "inline-block",
@@ -67,7 +67,7 @@ const SocialLinks = marker => {
       <TwitterShareButton
         title={quote}
         hashtags={["cameroncam", "brexit"]}
-        url="https://cameron-cam.surge.sh"
+        url="www.cameroncam.com"
         style={{
           float: "left",
           outline: "none"
@@ -81,7 +81,7 @@ const SocialLinks = marker => {
       </TwitterShareButton>
       <RedditShareButton
         title={quote}
-        url="https://cameron-cam.surge.sh"
+        url="www.cameroncam.com"
         style={{
           float: "right",
           outline: "none"

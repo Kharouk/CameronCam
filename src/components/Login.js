@@ -110,6 +110,9 @@ export default class Login extends Component {
                 <button className="submit--button buttons" type="submit">
                   Register
                 </button>
+                <div className="privacy-link">
+                  <a href="https://privacypolicygenerator.info/live.php?token=Jj0CK3AyKQnr2pH5W28zpei9MiCUIBzI">link to privacy policy</a>
+                </div>
                 {error && (
                   <FlashMessage duration={5000} persistOnHover={true}>
                     <p
@@ -157,6 +160,9 @@ export default class Login extends Component {
                 <button className="submit--button buttons" type="submit">
                   Login
                 </button>
+                <div className="privacy-link">
+                  <a href="https://privacypolicygenerator.info/live.php?token=Jj0CK3AyKQnr2pH5W28zpei9MiCUIBzI">link to privacy policy</a>
+                </div>
                 {error && (
                   <FlashMessage duration={5000} persistOnHover={true}>
                     <p style={{ color: "red" }}>{error.message}</p>

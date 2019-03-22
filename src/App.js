@@ -57,6 +57,12 @@ class App extends Component {
       .createUserWithEmailAndPassword(email, password)
       .then(user => {
         this.setState({ isUserLoggedIn: true });
+      })
+      .catch(error => {
+        this.setState({ error });
+        setTimeout(() => {
+          this.setState({ error: null });
+        }, 5000);
       });
   };
 
@@ -69,9 +75,11 @@ class App extends Component {
         var user = result.user;
         this.setState({ isUserLoggedIn: true });
       })
-      .catch(function(error) {
-        var errorMessage = error.message;
-        console.log(errorMessage);
+      .catch(error => {
+        this.setState({ error });
+        setTimeout(() => {
+          this.setState({ error: null });
+        }, 5000);
       });
   };
 
@@ -85,9 +93,11 @@ class App extends Component {
         var user = result.user;
         this.setState({ isUserLoggedIn: true });
       })
-      .catch(function(error) {
-        var errorMessage = error.message;
-        console.log(errorMessage);
+      .catch(error => {
+        this.setState({ error });
+        setTimeout(() => {
+          this.setState({ error: null });
+        }, 5000);
       });
   };
 
@@ -98,6 +108,12 @@ class App extends Component {
       .signInWithPopup(provider)
       .then(result => {
         this.setState({ isUserLoggedIn: true });
+      })
+      .catch(error => {
+        this.setState({ error });
+        setTimeout(() => {
+          this.setState({ error: null });
+        }, 5000);
       });
   };
 
@@ -111,7 +127,10 @@ class App extends Component {
         this.setState({ isUserLoggedIn: true });
       })
       .catch(error => {
-        console.log(error);
+        this.setState({ error });
+        setTimeout(() => {
+          this.setState({ error: null });
+        }, 5000);
       });
   };
 
@@ -121,6 +140,12 @@ class App extends Component {
       .signOut()
       .then(() => {
         this.setState({ isUserLoggedIn: false });
+      })
+      .catch(error => {
+        this.setState({ error });
+        setTimeout(() => {
+          this.setState({ error: null });
+        }, 5000);
       });
   };
 
@@ -149,6 +174,7 @@ class App extends Component {
           handleGoogleSubmit={this.handleGoogleSubmit}
           handleFacebookSubmit={this.handleFacebookSubmit}
           handleTwitterSubmit={this.handleTwitterSubmit}
+          error={this.state.error}
         />
         <Map db={db} storage={storageRef} user={firebase.auth().currentUser} />
         <About contentful={client} />

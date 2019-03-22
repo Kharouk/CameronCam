@@ -11,15 +11,20 @@
 }
 
 .main-txt {
-  line-height: 43px;
-  font-size: 30px;
-  color: #fff200;
+  font-size: 31px;
+  color: #fff;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: 400;
   margin-left: 5%;
-  width: 70%;
-  padding-top: 0.3%;
+  width: 60%;
+  padding-top: 5%;
   text-align: left;
+  position: sticky;
+}
+
+.main-txt strong {
+  font-size: 20px;
+  color: #fff200;
 }
 
 .contact-us {
@@ -28,16 +33,22 @@
   font-size: 17px;
   color: #dbf6ff;
   font-family: sans-serif;
-  width: 70%;
+  width: 60%;
+  position: sticky;
 }
 
 .contact-us a {
   color: #fff200;
 }
 
+.contact-us strong {
+  font-size: 20px;
+  color: #fff200;
+}
+
 @media (max-width: 500px) {
   #about-logo {
-    text-align: center;
+    width: 100%;
   }
   .p--text {
     margin: 0 auto;
@@ -49,12 +60,26 @@
 
   .main-txt {
     margin-top: 0;
+    padding-top: 0;
+    width: 90%;
+    font-size: 20px;
+  }
+
+  .contact-us {
     width: 90%;
     font-size: 20px;
   }
 }
 
 @media (max-width: 360px) and (max-width: 760px) {
+  #about-logo {
+    transform: unset;
+    width: 50%;
+    margin: 20px 25%;
+  }
+}
+
+@media (max-width: 1200px) {
   #about-logo {
     transform: unset;
     width: 50%;

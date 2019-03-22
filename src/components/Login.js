@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fab } from "@fortawesome/free-brands-svg-icons";
+import FlashMessage from "react-flash-message";
 import "./styles/login.css";
 
 library.add(fab);
@@ -60,7 +61,8 @@ export default class Login extends Component {
       password,
       handleRegisterSubmit,
       handleLoginSubmit,
-      handleInputChange
+      handleInputChange,
+      error
     } = this.props;
 
     const { login, register } = this.state;
@@ -93,7 +95,7 @@ export default class Login extends Component {
                   className="input__fields"
                   placeholder="Email"
                   value={email}
-                  autoComplete
+                  autoComplete="true"
                   onChange={handleInputChange}
                 />
                 <label htmlFor="email">Choose a password</label>
@@ -108,6 +110,23 @@ export default class Login extends Component {
                 <button className="submit--button buttons" type="submit">
                   Register
                 </button>
+                {error && (
+                  <FlashMessage duration={5000} persistOnHover={true}>
+                    <p
+                      style={{
+                        color: "#C02F1D",
+                        border: "2px solid #C02F1D",
+                        width: "50%",
+                        borderRadius: "2%",
+                        fontWeight: "bold",
+                        padding: "2% 0",
+                        margin: "0 auto"
+                      }}
+                    >
+                      {error.message}
+                    </p>
+                  </FlashMessage>
+                )}
               </form>
             </>
           )}
@@ -123,7 +142,7 @@ export default class Login extends Component {
                   className="input__fields"
                   placeholder="Email"
                   value={email}
-                  autoComplete
+                  autoComplete="true"
                   onChange={handleInputChange}
                 />
                 <label htmlFor="email">What is your password?</label>
@@ -138,6 +157,11 @@ export default class Login extends Component {
                 <button className="submit--button buttons" type="submit">
                   Login
                 </button>
+                {error && (
+                  <FlashMessage duration={5000} persistOnHover={true}>
+                    <p style={{ color: "red" }}>{error.message}</p>
+                  </FlashMessage>
+                )}
               </form>
             </>
           )}

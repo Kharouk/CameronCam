@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import Button from "./Button";
 import ImageUpload from "./ImageUpload";
 import Description from "./Description";
@@ -9,12 +9,91 @@ import {
   Marker,
   InfoWindow
 } from "react-google-maps";
+import {
+  FacebookShareButton,
+  TwitterShareButton,
+  RedditShareButton
+} from "react-share";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Geocode from "react-geocode";
 
 const cameron = require("./styles/images/pin.png");
 
 let url = `https://maps.googleapis.com/maps/api/js?key=${
   process.env.REACT_APP_GOOGLE_API_KEY
 }`;
+
+Geocode.setApiKey(process.env.REACT_APP_GOOGLE_API_KEY);
+
+const SocialLinks = marker => {
+  const [city, setCity] = useState(null);
+  const [quote, setQuote] = useState(null);
+  Geocode.fromLatLng(marker.lat, marker.lng).then(
+    response => {
+      setCity(response.results[0].address_components[2].long_name);
+      if (city !== null) {
+        setQuote(`David Cameron has been spotted around ${city}!`);
+      } else {
+        setQuote(
+          `I spotted David Cameron with #CameronCam! Help us find him at CameronCam.com!`
+        );
+      }
+    },
+    error => {
+      setQuote(
+        `I spotted David Cameron with #CameronCam! Help us find him at CameronCam.com!`
+      );
+    }
+  );
+  return (
+    <div className="social--links">
+      <FacebookShareButton
+        quote={quote}
+        url="https://cameron-cam.surge.sh"
+        hashtag="#cameroncam"
+        style={{
+          display: "inline-block",
+          outline: "none"
+        }}
+      >
+        <FontAwesomeIcon
+          icon={["fab", "facebook"]}
+          size="2x"
+          className="share--button"
+        />
+      </FacebookShareButton>
+      <TwitterShareButton
+        title={quote}
+        hashtags={["cameroncam", "brexit"]}
+        url="https://cameron-cam.surge.sh"
+        style={{
+          float: "left",
+          outline: "none"
+        }}
+      >
+        <FontAwesomeIcon
+          icon={["fab", "twitter"]}
+          size="2x"
+          className="share--button"
+        />
+      </TwitterShareButton>
+      <RedditShareButton
+        title={quote}
+        url="https://cameron-cam.surge.sh"
+        style={{
+          float: "right",
+          outline: "none"
+        }}
+      >
+        <FontAwesomeIcon
+          icon={["fab", "reddit"]}
+          size="2x"
+          className="share--button"
+        />
+      </RedditShareButton>
+    </div>
+  );
+};
 
 const MapComponent = withScriptjs(
   withGoogleMap(props => (
@@ -66,6 +145,7 @@ const MapComponent = withScriptjs(
                 <div style={{ textAlign: "center", margin: "0 auto" }}>
                   {marker.img && <img src={marker.img} alt={marker.desc} />}
                   <p>{marker.desc}</p>
+                  {SocialLinks(marker)}
                   {props.user && props.user.uid === marker.uid && (
                     <Button
                       isSaveButton={false}

@@ -16,10 +16,9 @@
   color: #fff200;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: 400;
-  text-decoration: underline;
   margin-left: 5%;
   width: 70%;
-  padding-top: 10%;
+  padding-top: 0.3%;
   text-align: left;
 }
 
@@ -29,26 +28,19 @@
   font-size: 17px;
   color: #dbf6ff;
   font-family: sans-serif;
-  position: absolute;
+  width: 70%;
 }
 
-.createdby__text {
-  margin-left: 20%;
-  color: #dbf6ff;
-}
-
-.createdby__text > a {
-  color: #dbf6ff;
+.contact-us a {
+  color: #fff200;
 }
 
 @media (max-width: 500px) {
+  #about-logo {
+    text-align: center;
+  }
   .p--text {
     margin: 0 auto;
-  }
-
-  .contact-us {
-    margin-left: 10%;
-    /* padding-bottom: 10%; */
   }
 
   .about-body {
@@ -60,21 +52,12 @@
     width: 90%;
     font-size: 20px;
   }
-
-  .createdby__text {
-    margin: 0 10px;
-    text-align: left;
-  }
-
-  .about--left {
-    text-align: center;
-  };
 }
 
 @media (max-width: 360px) and (max-width: 760px) {
   #about-logo {
     transform: unset;
     width: 50%;
-    margin: 20px auto;
+    margin: 20px 25%;
   }
 }

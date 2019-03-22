@@ -52,6 +52,11 @@
   color: #fff;
 }
 
+.share--button:hover {
+  color: #2282c9;
+  transition: 0.3s ease
+}
+
 .register-button {
   border-bottom: 1px solid;
   padding-bottom: 3px;

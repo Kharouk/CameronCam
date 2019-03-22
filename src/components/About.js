@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import * as Markdown from "react-markdown";
 import "./styles/about.css";
 const logo = require("./styles/images/logo_CC.png");
 
@@ -14,7 +15,7 @@ export default class About extends Component {
   }
 
   createHtml = content => {
-    return { __html: content };
+    return <Markdown source={content} />;
   };
 
   render() {
@@ -27,26 +28,15 @@ export default class About extends Component {
               <a href="#header-main">
                 <img id="about-logo" src={logo} alt="camLogo" />
               </a>
-              <p
-                className="createdby__text"
-                dangerouslySetInnerHTML={this.createHtml(
-                  aboutContent.fields.createdBy
-                )}
-              />
             </div>
             <div id="text">
               <p
                 className="main-txt"
-                dangerouslySetInnerHTML={this.createHtml(
-                  aboutContent.fields.about
-                )}
+                children={this.createHtml(aboutContent.fields.about)}
               />
-
               <p
                 className="contact-us"
-                dangerouslySetInnerHTML={this.createHtml(
-                  aboutContent.fields.contact
-                )}
+                children={this.createHtml(aboutContent.fields.about)}
               />
             </div>
           </div>

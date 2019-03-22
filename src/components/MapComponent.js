@@ -9,12 +9,35 @@ import {
   Marker,
   InfoWindow
 } from "react-google-maps";
+import { FacebookShareButton, TwitterShareButton } from "react-share";
+import { FacebookIcon, TwitterIcon } from "react-share";
 
 const cameron = require("./styles/images/pin.png");
 
 let url = `https://maps.googleapis.com/maps/api/js?key=${
   process.env.REACT_APP_GOOGLE_API_KEY
 }`;
+
+const SocialLinks = marker => {
+  return (
+    <div>
+      <FacebookShareButton
+        quote="Come see where David Cameron has been!"
+        url="https://cameron-cam.surge.sh"
+        hashtag="#cameroncam"
+      >
+        <FacebookIcon size={32} round={true} />
+      </FacebookShareButton>
+      <TwitterShareButton
+        title="Come see where David Cameron has been!"
+        hashtags={["cameroncam", "brexit"]}
+        url="https://cameron-cam.surge.sh"
+      >
+        <TwitterIcon size={32} round={true} />
+      </TwitterShareButton>
+    </div>
+  );
+};
 
 const MapComponent = withScriptjs(
   withGoogleMap(props => (
@@ -66,17 +89,7 @@ const MapComponent = withScriptjs(
                 <div style={{ textAlign: "center", margin: "0 auto" }}>
                   {marker.img && <img src={marker.img} alt={marker.desc} />}
                   <p>{marker.desc}</p>
-                  <iframe
-                    title="Facebook Share"
-                    src="https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fcameron-cam.surge.sh&layout=button_count&size=small&appId=390645925101523&width=69&height=20"
-                    width="69"
-                    height="20"
-                    style={{ border: "none", overflow: "hidden" }}
-                    scrolling="no"
-                    frameborder="0"
-                    allowTransparency="true"
-                    allow="encrypted-media"
-                  />
+                  {SocialLinks(marker)}
                   {props.user && props.user.uid === marker.uid && (
                     <Button
                       isSaveButton={false}

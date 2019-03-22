@@ -10,7 +10,7 @@ const Button = props => {
     text = "Save";
   } else {
     color = "rgb(195, 50, 95)";
-    margin = "10%";
+    margin = "5%";
     onClick = props.deleteFromDatabase;
     text = "Delete";
   }

@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import "./styles/login.css";
+import "./styles/privacy.css";
 
 library.add(fab);
 
@@ -108,6 +109,9 @@ export default class Login extends Component {
                 <button className="submit--button buttons" type="submit">
                   Register
                 </button>
+                <div className="privacy-link">
+                  <a href="https://privacypolicygenerator.info/live.php?token=Jj0CK3AyKQnr2pH5W28zpei9MiCUIBzI">link to privacy policy</a>
+                </div>
               </form>
             </>
           )}
@@ -138,6 +142,9 @@ export default class Login extends Component {
                 <button className="submit--button buttons" type="submit">
                   Login
                 </button>
+                <div className="privacy-link">
+                  <a href="#privacy-policy" id="cameron-about">link to privacy policy</a>
+                </div>
               </form>
             </>
           )}

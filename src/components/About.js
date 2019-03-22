@@ -36,7 +36,7 @@ export default class About extends Component {
               />
               <p
                 className="contact-us"
-                children={this.createHtml(aboutContent.fields.about)}
+                children={this.createHtml(aboutContent.fields.contact)}
               />
             </div>
           </div>

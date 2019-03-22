@@ -10,7 +10,9 @@ import {
   InfoWindow
 } from "react-google-maps";
 import { FacebookShareButton, TwitterShareButton } from "react-share";
-import { FacebookIcon, TwitterIcon } from "react-share";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { fab } from "@fortawesome/free-brands-svg-icons";
 import Geocode from "react-geocode";
 
 const cameron = require("./styles/images/pin.png");
@@ -42,20 +44,28 @@ const SocialLinks = marker => {
     }
   );
   return (
-    <div>
+    <div className="social--links">
       <FacebookShareButton
         quote={quote}
         url="https://cameron-cam.surge.sh"
         hashtag="#cameroncam"
       >
-        <FacebookIcon size={32} round={true} />
+        <FontAwesomeIcon
+          icon={["fab", "facebook"]}
+          size="3x"
+          className="share--button"
+        />
       </FacebookShareButton>
       <TwitterShareButton
         title={quote}
         hashtags={["cameroncam", "brexit"]}
         url="https://cameron-cam.surge.sh"
       >
-        <TwitterIcon size={32} round={true} />
+        <FontAwesomeIcon
+          icon={["fab", "twitter"]}
+          size="3x"
+          className="share--button"
+        />
       </TwitterShareButton>
     </div>
   );

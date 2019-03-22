@@ -66,6 +66,17 @@ const MapComponent = withScriptjs(
                 <div style={{ textAlign: "center", margin: "0 auto" }}>
                   {marker.img && <img src={marker.img} alt={marker.desc} />}
                   <p>{marker.desc}</p>
+                  <iframe
+                    title="Facebook Share"
+                    src="https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fcameron-cam.surge.sh&layout=button_count&size=small&appId=390645925101523&width=69&height=20"
+                    width="69"
+                    height="20"
+                    style={{ border: "none", overflow: "hidden" }}
+                    scrolling="no"
+                    frameborder="0"
+                    allowTransparency="true"
+                    allow="encrypted-media"
+                  />
                   {props.user && props.user.uid === marker.uid && (
                     <Button
                       isSaveButton={false}

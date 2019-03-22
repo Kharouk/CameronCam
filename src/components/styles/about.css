@@ -61,3 +61,7 @@
     margin: 20px 25%;
   }
 }
+
+@media (min-width: 768px) and (max-width: 1024px) {
+
+}

@@ -112,7 +112,19 @@ export default class Login extends Component {
                 </button>
                 {error && (
                   <FlashMessage duration={5000} persistOnHover={true}>
-                    <p>{error.message}</p>
+                    <p
+                      style={{
+                        color: "#C02F1D",
+                        border: "2px solid #C02F1D",
+                        width: "50%",
+                        borderRadius: "2%",
+                        fontWeight: "bold",
+                        padding: "2% 0",
+                        margin: "0 auto"
+                      }}
+                    >
+                      {error.message}
+                    </p>
                   </FlashMessage>
                 )}
               </form>
@@ -147,7 +159,7 @@ export default class Login extends Component {
                 </button>
                 {error && (
                   <FlashMessage duration={5000} persistOnHover={true}>
-                    <p>{error.message}</p>
+                    <p style={{ color: "red" }}>{error.message}</p>
                   </FlashMessage>
                 )}
               </form>

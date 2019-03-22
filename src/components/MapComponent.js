@@ -27,7 +27,6 @@ Geocode.setApiKey(process.env.REACT_APP_GOOGLE_API_KEY);
 
 const SocialLinks = marker => {
   const [city, setCity] = useState(null);
-  const [country, setCountry] = useState(null);
   const [quote, setQuote] = useState(null);
   Geocode.fromLatLng(marker.lat, marker.lng).then(
     response => {

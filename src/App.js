@@ -5,9 +5,16 @@ import Map from "./components/MapComponent";
 import Login from "./components/Login";
 import Header from "./components/Header";
 import About from "./components/About";
-// import { isMobile } from "react-device-detect";
+import { isMobile } from "react-device-detect";
+// backend content:
+import * as contentful from "contentful";
 
 import "./App.css";
+
+const client = contentful.createClient({
+  space: process.env.REACT_APP_CONTENTFUL_SPACE,
+  accessToken: process.env.REACT_APP_CONTENTFUL_TOKEN
+});
 
 let config = {
   apiKey: process.env.REACT_APP_FIREBASE_API,
@@ -50,6 +57,12 @@ class App extends Component {
       .createUserWithEmailAndPassword(email, password)
       .then(user => {
         this.setState({ isUserLoggedIn: true });
+      })
+      .catch(error => {
+        this.setState({ error });
+        setTimeout(() => {
+          this.setState({ error: null });
+        }, 5000);
       });
   };
 
@@ -62,9 +75,11 @@ class App extends Component {
         var user = result.user;
         this.setState({ isUserLoggedIn: true });
       })
-      .catch(function(error) {
-        var errorMessage = error.message;
-        console.log(errorMessage);
+      .catch(error => {
+        this.setState({ error });
+        setTimeout(() => {
+          this.setState({ error: null });
+        }, 5000);
       });
   };
 
@@ -78,9 +93,11 @@ class App extends Component {
         var user = result.user;
         this.setState({ isUserLoggedIn: true });
       })
-      .catch(function(error) {
-        var errorMessage = error.message;
-        console.log(errorMessage);
+      .catch(error => {
+        this.setState({ error });
+        setTimeout(() => {
+          this.setState({ error: null });
+        }, 5000);
       });
   };
 
@@ -91,6 +108,12 @@ class App extends Component {
       .signInWithPopup(provider)
       .then(result => {
         this.setState({ isUserLoggedIn: true });
+      })
+      .catch(error => {
+        this.setState({ error });
+        setTimeout(() => {
+          this.setState({ error: null });
+        }, 5000);
       });
   };
 
@@ -104,7 +127,10 @@ class App extends Component {
         this.setState({ isUserLoggedIn: true });
       })
       .catch(error => {
-        console.log(error);
+        this.setState({ error });
+        setTimeout(() => {
+          this.setState({ error: null });
+        }, 5000);
       });
   };
 
@@ -114,6 +140,12 @@ class App extends Component {
       .signOut()
       .then(() => {
         this.setState({ isUserLoggedIn: false });
+      })
+      .catch(error => {
+        this.setState({ error });
+        setTimeout(() => {
+          this.setState({ error: null });
+        }, 5000);
       });
   };
 
@@ -142,9 +174,10 @@ class App extends Component {
           handleGoogleSubmit={this.handleGoogleSubmit}
           handleFacebookSubmit={this.handleFacebookSubmit}
           handleTwitterSubmit={this.handleTwitterSubmit}
+          error={this.state.error}
         />
         <Map db={db} storage={storageRef} user={firebase.auth().currentUser} />
-        <About />
+        <About contentful={client} />
       </div>
     );
   };

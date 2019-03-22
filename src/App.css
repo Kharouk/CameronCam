@@ -1,21 +1,16 @@
 html {
-  background-color: #2282c9
+  background-color: #2282c9;
+  font-family: sans-serif, 'Times New Roman', Times, serif;
 }
 
 .sign-in-header {
   text-align: center;
-  color: #fff200;
+  color: #fff;
   font-weight: 400;
 }
 
 .email--link {
-  color: #fff200;
+  color: #fff;
   text-decoration: none;
   border-bottom: 1px solid;
-}
-
-@media (max-width: 500px) {
-  #map {
-    width: 100%;
-  }
 }

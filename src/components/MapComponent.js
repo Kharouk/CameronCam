@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import Button from "./Button";
 import ImageUpload from "./ImageUpload";
 import Description from "./Description";
@@ -9,12 +9,93 @@ import {
   Marker,
   InfoWindow
 } from "react-google-maps";
+import {
+  FacebookShareButton,
+  TwitterShareButton,
+  RedditShareButton
+} from "react-share";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Geocode from "react-geocode";
 
 const cameron = require("./styles/images/pin.png");
 
 let url = `https://maps.googleapis.com/maps/api/js?key=${
   process.env.REACT_APP_GOOGLE_API_KEY
 }`;
+
+Geocode.setApiKey(process.env.REACT_APP_GOOGLE_API_KEY);
+
+const SocialLinks = marker => {
+  const [city, setCity] = useState(null);
+  const [quote, setQuote] = useState(null);
+  Geocode.fromLatLng(marker.lat, marker.lng).then(
+    response => {
+      setCity(response.results[0].address_components[2].long_name);
+      if (city !== null) {
+        setQuote(
+          `I spotted David Cameron around ${city} with CameronCam! Help us find him at CameronCam.com!`
+        );
+      } else {
+        setQuote(
+          `I spotted David Cameron with #CameronCam! Help us find him at CameronCam.com!`
+        );
+      }
+    },
+    error => {
+      setQuote(
+        `I spotted David Cameron with #CameronCam! Help us find him at CameronCam.com!`
+      );
+    }
+  );
+  return (
+    <div className="social--links">
+      <FacebookShareButton
+        quote={quote}
+        url="www.cameroncam.com"
+        hashtag="#cameroncam"
+        style={{
+          display: "inline-block",
+          outline: "none"
+        }}
+      >
+        <FontAwesomeIcon
+          icon={["fab", "facebook"]}
+          size="2x"
+          className="share--button"
+        />
+      </FacebookShareButton>
+      <TwitterShareButton
+        title={quote}
+        hashtags={["cameroncam", "brexit"]}
+        url="www.cameroncam.com"
+        style={{
+          float: "left",
+          outline: "none"
+        }}
+      >
+        <FontAwesomeIcon
+          icon={["fab", "twitter"]}
+          size="2x"
+          className="share--button"
+        />
+      </TwitterShareButton>
+      <RedditShareButton
+        title={quote}
+        url="www.cameroncam.com"
+        style={{
+          float: "right",
+          outline: "none"
+        }}
+      >
+        <FontAwesomeIcon
+          icon={["fab", "reddit"]}
+          size="2x"
+          className="share--button"
+        />
+      </RedditShareButton>
+    </div>
+  );
+};
 
 const MapComponent = withScriptjs(
   withGoogleMap(props => (
@@ -64,16 +145,25 @@ const MapComponent = withScriptjs(
             {props.isOpen && props.markerWindowIndex === index && (
               <InfoWindow onCloseClick={props.hideInfo}>
                 <div style={{ textAlign: "center", margin: "0 auto" }}>
-                  {marker.img && <img src={marker.img} alt={marker.desc} />}
-                  <p>{marker.desc}</p>
-                  {props.user && props.user.uid === marker.uid && (
-                    <Button
-                      isSaveButton={false}
-                      deleteFromDatabase={() =>
-                        props.deleteFromDatabase(marker)
-                      }
+                  {marker.img && (
+                    <img
+                      src={marker.img}
+                      alt={marker.desc}
+                      onLoad={() => props.handleImageLoad()}
                     />
                   )}
+                  <p>{marker.desc}</p>
+                  {SocialLinks(marker)}
+                  {(props.user && props.user.uid === marker.uid) ||
+                    (props.user &&
+                      props.user.uid === process.env.REACT_APP_ADMIN && (
+                        <Button
+                          isSaveButton={false}
+                          deleteFromDatabase={() =>
+                            props.deleteFromDatabase(marker)
+                          }
+                        />
+                      ))}
                 </div>
               </InfoWindow>
             )}
@@ -100,7 +190,8 @@ class Map extends Component {
       markers: [],
       infoBox: false,
       saveInfoBox: true,
-      index: 0
+      index: 0,
+      imageLoaded: false
     };
   }
 
@@ -135,6 +226,10 @@ class Map extends Component {
         marker.img = url;
         this.setState({ ...marker });
       });
+  };
+
+  handleImageLoad = () => {
+    this.setState({ imageLoaded: !this.state.imageLoaded });
   };
 
   descHandleChange = e => {
@@ -208,6 +303,8 @@ class Map extends Component {
           isSaveOpen={this.state.saveInfoBox}
           user={this.props.user}
           googleMapURL={url}
+          handleImageLoad={this.handleImageLoad}
+          imageLoaded={this.state.imageLoaded}
           loadingElement={<div style={{ height: `100vh`, width: `100vw` }} />}
           containerElement={<div style={{ height: `100vh`, width: `100vw` }} />}
           mapElement={<div style={{ height: `100vh`, width: `100vw` }} />}

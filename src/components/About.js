@@ -30,12 +30,14 @@ export default class About extends Component {
               </a>
             </div>
             <div id="text">
-              <p className="main-txt">
-                {this.createHtml(aboutContent.fields.about)}
-              </p>
-              <p className="contact-us">
-                {this.createHtml(aboutContent.fields.contact)}
-              </p>
+              <p
+                className="main-txt"
+                children={this.createHtml(aboutContent.fields.about)}
+              />
+              <p
+                className="contact-us"
+                children={this.createHtml(aboutContent.fields.about)}
+              />
             </div>
           </div>
         )}

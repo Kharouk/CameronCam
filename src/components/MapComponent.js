@@ -135,6 +135,7 @@ const MapComponent = withScriptjs(
 
       {/* Already saved Markers from DB: */}
       {props.markers.map((marker, index) => {
+        console.log(props.user);
         return (
           <Marker
             icon={cameron}
@@ -154,14 +155,16 @@ const MapComponent = withScriptjs(
                   )}
                   <p>{marker.desc}</p>
                   {SocialLinks(marker)}
-                  {props.user && props.user.uid === marker.uid && (
-                    <Button
-                      isSaveButton={false}
-                      deleteFromDatabase={() =>
-                        props.deleteFromDatabase(marker)
-                      }
-                    />
-                  )}
+                  {(props.user && props.user.uid === marker.uid) ||
+                    (props.user &&
+                      props.user.uid === process.env.REACT_APP_ADMIN && (
+                        <Button
+                          isSaveButton={false}
+                          deleteFromDatabase={() =>
+                            props.deleteFromDatabase(marker)
+                          }
+                        />
+                      ))}
                 </div>
               </InfoWindow>
             )}

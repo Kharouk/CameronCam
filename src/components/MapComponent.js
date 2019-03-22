@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import Button from "./Button";
 import ImageUpload from "./ImageUpload";
 import Description from "./Description";
@@ -11,6 +11,7 @@ import {
 } from "react-google-maps";
 import { FacebookShareButton, TwitterShareButton } from "react-share";
 import { FacebookIcon, TwitterIcon } from "react-share";
+import Geocode from "react-geocode";
 
 const cameron = require("./styles/images/pin.png");
 
@@ -18,18 +19,39 @@ let url = `https://maps.googleapis.com/maps/api/js?key=${
   process.env.REACT_APP_GOOGLE_API_KEY
 }`;
 
+Geocode.setApiKey(process.env.REACT_APP_GOOGLE_API_KEY);
+
 const SocialLinks = marker => {
+  const [city, setCity] = useState(null);
+  const [country, setCountry] = useState(null);
+  const [quote, setQuote] = useState(null);
+  Geocode.fromLatLng(marker.lat, marker.lng).then(
+    response => {
+      setCity(response.results[0].address_components[2].long_name);
+      setCountry(response.results[0].address_components[5].long_name);
+      if (city !== null) {
+        setQuote(
+          `David Cameron has been spotted nearby ${city} in ${country}!`
+        );
+      } else {
+        setQuote(`David Cameron has been spotted nearby you!`);
+      }
+    },
+    error => {
+      setQuote(`David Cameron has been spotted nearby you!`);
+    }
+  );
   return (
     <div>
       <FacebookShareButton
-        quote="Come see where David Cameron has been!"
+        quote={quote}
         url="https://cameron-cam.surge.sh"
         hashtag="#cameroncam"
       >
         <FacebookIcon size={32} round={true} />
       </FacebookShareButton>
       <TwitterShareButton
-        title="Come see where David Cameron has been!"
+        title={quote}
         hashtags={["cameroncam", "brexit"]}
         url="https://cameron-cam.surge.sh"
       >

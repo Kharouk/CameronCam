@@ -28,9 +28,6 @@ export default class About extends Component {
               <a href="#header-main">
                 <img id="about-logo" src={logo} alt="camLogo" />
               </a>
-              <p className="createdby__text">
-                {this.createHtml(aboutContent.fields.createdBy)}
-              </p>
             </div>
             <div id="text">
               <p className="main-txt">

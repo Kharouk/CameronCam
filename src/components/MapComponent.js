@@ -135,7 +135,6 @@ const MapComponent = withScriptjs(
 
       {/* Already saved Markers from DB: */}
       {props.markers.map((marker, index) => {
-        console.log(props.user);
         return (
           <Marker
             icon={cameron}

@@ -1,6 +1,11 @@
+@font-face {
+  src: url("./fonts/itc-avant-garde-gothic-std-extra-light-condensed-589570b606f66.otf");
+  font-family: "Avant Garde"
+}
+
 html {
   background-color: #2282c9;
-  font-family: sans-serif, 'Times New Roman', Times, serif;
+  font-family: "Avant Garde", sans-serif, 'Times New Roman', Times, serif;
 }
 
 .sign-in-header {

@@ -111,7 +111,7 @@ export default class Login extends Component {
                   Register
                 </button>
                 <div className="privacy-link">
-                  <a href="https://privacypolicygenerator.info/live.php?token=Jj0CK3AyKQnr2pH5W28zpei9MiCUIBzI">link to privacy policy</a>
+                  <a href="https://privacypolicygenerator.info/live.php?token=360T7XqfTtxk0SONceTCBfdC4v2iLmWk">link to privacy policy</a>
                 </div>
                 {error && (
                   <FlashMessage duration={5000} persistOnHover={true}>
@@ -161,7 +161,7 @@ export default class Login extends Component {
                   Login
                 </button>
                 <div className="privacy-link">
-                  <a href="https://privacypolicygenerator.info/live.php?token=Jj0CK3AyKQnr2pH5W28zpei9MiCUIBzI">link to privacy policy</a>
+                  <a href="https://privacypolicygenerator.info/live.php?token=360T7XqfTtxk0SONceTCBfdC4v2iLmWk">link to privacy policy</a>
                 </div>
                 {error && (
                   <FlashMessage duration={5000} persistOnHover={true}>

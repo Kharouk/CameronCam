@@ -5,7 +5,6 @@ import Map from "./components/MapComponent";
 import Login from "./components/Login";
 import Header from "./components/Header";
 import About from "./components/About";
-import { isMobile } from "react-device-detect";
 // backend content:
 import * as contentful from "contentful";
 
